@@ -1,14 +1,6 @@
-import { Star, ChevronDown, Sparkles, Diamond, MessageCircle, Home, Send, Wallet } from "lucide-react";
-import { Avatar } from "@frete.com/fuel-react/avatar";
-import { Card } from "@frete.com/fuel-react/card";
-import { Chip } from "@frete.com/fuel-react/chip";
-import { Search } from "@frete.com/fuel-react/search";
-import { Badge } from "@frete.com/fuel-react/badge";
-import { useState } from "react";
+import { Search, Star, ChevronDown, Sparkles, Diamond, MessageCircle, Home, Send, Wallet } from "lucide-react";
 
 export default function Index() {
-  const [searchValue, setSearchValue] = useState("");
-
   const freights = [
     {
       id: 1,
@@ -152,49 +144,29 @@ export default function Index() {
     <div className="min-h-screen bg-[#F4F4F5] font-satoshi">
       {/* Mobile container */}
       <div className="mx-auto max-w-[360px] bg-[#F4F4F5] min-h-screen relative">
-        {/* Android Status Bar */}
-        <div className="h-6 bg-white flex items-center justify-between px-3">
-          <span className="text-sm font-medium text-[#111] font-roboto">12:30</span>
-          <div className="flex items-center gap-1.5">
-            {/* Cellular Icon */}
-            <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
-              <path d="M2.11719 7.5C2.70196 7.5 3.17676 8.00368 3.17676 8.625V10.875C3.17676 11.4963 2.70196 12 2.11719 12H1.05859C0.473928 11.9999 1.45508e-06 11.4962 0 10.875V8.625C0 8.00376 0.473927 7.50013 1.05859 7.5H2.11719ZM7.05859 5.25C7.64337 5.25 8.11719 5.75368 8.11719 6.375V10.875C8.11719 11.4963 7.64337 12 7.05859 12H6C5.41524 12 4.94141 11.4963 4.94141 10.875V6.375C4.94141 5.75369 5.41524 5.25001 6 5.25H7.05859ZM12 2.625C12.5848 2.62501 13.0586 3.12869 13.0586 3.75V10.875C13.0586 11.4963 12.5848 12 12 12H10.9414C10.3566 12 9.88281 11.4963 9.88281 10.875V3.75C9.88281 3.12868 10.3566 2.625 10.9414 2.625H12ZM16.9414 0C17.5261 0.000132092 18 0.503761 18 1.125V10.875C18 11.4962 17.5261 11.9999 16.9414 12H15.8828C15.298 12 14.8232 11.4963 14.8232 10.875V1.125C14.8232 0.50368 15.298 0 15.8828 0H16.9414Z" fill="#111111"/>
-            </svg>
-            {/* WiFi Icon */}
-            <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-              <path d="M5.68555 9.19238C7.02183 8.01196 8.97916 8.01192 10.3154 9.19238C10.3826 9.25585 10.4219 9.34583 10.4238 9.44043C10.4257 9.5351 10.3899 9.62704 10.3252 9.69336L8.23242 11.8984C8.17108 11.9633 8.08726 12 8 12C7.91292 11.9999 7.82979 11.9631 7.76855 11.8984L5.67578 9.69336C5.61113 9.62699 5.57523 9.5351 5.57715 9.44043C5.57909 9.3458 5.61829 9.25582 5.68555 9.19238ZM2.89355 6.25C5.77269 3.45271 10.2313 3.45254 13.1104 6.25C13.1753 6.31555 13.2119 6.40569 13.2129 6.5C13.2138 6.59424 13.1787 6.68502 13.1152 6.75195L11.9053 8.0293C11.7806 8.15955 11.579 8.16204 11.4512 8.03516C10.5057 7.14097 9.27541 6.64543 8 6.64551C6.7255 6.64617 5.49649 7.14155 4.55176 8.03516C4.42388 8.16207 4.22231 8.15967 4.09766 8.0293L2.88867 6.75195C2.82496 6.6851 2.78919 6.59433 2.79004 6.5C2.79096 6.40566 2.82858 6.31554 2.89355 6.25ZM0.100586 3.31543C4.5165 -1.10519 11.4835 -1.10519 15.8994 3.31543C15.9633 3.3811 15.9995 3.47081 16 3.56445C16.0005 3.65801 15.9654 3.74804 15.9023 3.81445L14.6914 5.09082C14.5666 5.22181 14.364 5.22366 14.2373 5.09473C12.5548 3.4239 10.3215 2.49229 8 2.49219C5.67846 2.4923 3.44526 3.42389 1.7627 5.09473C1.63607 5.22376 1.43422 5.22197 1.30957 5.09082L0.0976562 3.81445C0.0345837 3.748 -0.000547202 3.65803 0 3.56445C0.000589494 3.47086 0.0366912 3.38104 0.100586 3.31543Z" fill="#111111"/>
-            </svg>
-            {/* Battery Icon */}
-            <div className="relative w-6 h-3">
-              <div className="absolute inset-0 border border-[rgba(17,17,17,0.35)] rounded-[2.667px] opacity-40"></div>
-              <div className="absolute left-[2px] top-[2px] w-[18px] h-2 bg-[#111] rounded-[1.333px]"></div>
-            </div>
-          </div>
-        </div>
-
         {/* Content */}
         <div className="px-4 pt-3 pb-24">
           {/* Search Bar + Avatar */}
           <div className="flex items-center gap-2 mb-4">
-            <div className="flex-1">
-              <Search
-                placeholder="Busque fretes agora"
-                value={searchValue}
-                onChange={setSearchValue}
-                aria-label="Buscar fretes"
-                className="w-full"
-              />
+            <div className="flex-1 h-[53px] rounded-[48px] shadow-[0_14px_64px_-4px_rgba(17,17,17,0.08),0_8px_22px_-6px_rgba(17,17,17,0.12)] flex items-center gap-4 px-4">
+              <div className="flex-1">
+                <p className="text-sm font-medium text-[#111] leading-[150%]">
+                  Busque fretes agora
+                </p>
+              </div>
+              <Search className="w-[13.33px] h-[13.33px] text-[#111]" />
             </div>
 
             {/* Avatar with badge */}
             <div className="relative flex flex-col items-center -mt-2">
-              <Avatar
-                initial="A"
-                size="medium"
-                status="online"
-                className="w-10 h-10"
-              />
-              <div className="flex items-center gap-1 h-[23px] px-2 rounded-[500px] bg-white shadow-sm mt-1">
+              <div className="w-10 h-10 rounded-full bg-[#636B7E] flex items-center justify-center">
+                <span className="text-base font-medium text-white">A</span>
+              </div>
+              <svg className="absolute -right-0.5 top-6" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="6" fill="#F4F4F5"/>
+                <circle cx="8" cy="8" r="4" fill="#0C884C"/>
+              </svg>
+              <div className="flex items-center gap-1 h-[23px] px-2 rounded-[500px] bg-white shadow-sm">
                 <Star className="w-3 h-3 fill-[#F5963D] text-[#F5963D]" />
                 <span className="text-xs font-bold text-[#636B7E]">4.8</span>
               </div>
@@ -203,36 +175,29 @@ export default function Index() {
 
           {/* Filter Chips */}
           <div className="flex items-start gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-            <Chip
-              label="Tipo de carga"
-              dropdown
-              iconRight={<ChevronDown className="w-4 h-4" />}
-              size="small"
-            />
-            <Chip
-              label="Veículo"
-              dropdown
-              iconRight={<ChevronDown className="w-4 h-4" />}
-              size="small"
-            />
-            <Chip
-              label="Carroceria"
-              dropdown
-              iconRight={<ChevronDown className="w-4 h-4" />}
-              size="small"
-            />
-            <Chip
-              label="Raio"
-              size="small"
-            />
+            <button className="flex items-center justify-center gap-2 min-w-fit h-8 px-3 rounded-[500px] border border-[rgba(0,43,92,0.16)] bg-white hover:bg-[rgba(0,43,92,0.06)] transition-colors whitespace-nowrap">
+              <span className="text-xs font-medium text-[#111]">Tipo de carga</span>
+              <ChevronDown className="w-4 h-4 text-[#111]" />
+            </button>
+            <button className="flex items-center justify-center gap-2 min-w-fit h-8 px-3 rounded-[500px] border border-[rgba(0,43,92,0.16)] bg-white hover:bg-[rgba(0,43,92,0.06)] transition-colors whitespace-nowrap">
+              <span className="text-xs font-medium text-[#111]">Veículo</span>
+              <ChevronDown className="w-4 h-4 text-[#111]" />
+            </button>
+            <button className="flex items-center justify-center gap-2 min-w-fit h-8 px-3 rounded-[500px] border border-[rgba(0,43,92,0.16)] bg-white hover:bg-[rgba(0,43,92,0.06)] transition-colors whitespace-nowrap">
+              <span className="text-xs font-medium text-[#111]">Carroceria</span>
+              <ChevronDown className="w-4 h-4 text-[#111]" />
+            </button>
+            <button className="flex items-center justify-center min-w-fit h-8 px-3 rounded-[500px] border border-[rgba(0,43,92,0.16)] bg-white hover:bg-[rgba(0,43,92,0.06)] transition-colors whitespace-nowrap">
+              <span className="text-xs font-medium text-[#111]">Raio</span>
+            </button>
           </div>
 
           {/* Freight Cards */}
           <div className="space-y-6">
             {freights.map((freight) => (
-              <Card key={freight.id} padding="md" className="relative">
+              <div key={freight.id} className="relative rounded-xl shadow-[0_1px_3px_rgba(17,17,17,0.06),0_1px_2px_rgba(17,17,17,0.12)] bg-white overflow-hidden">
                 {/* Card Content */}
-                <div className="space-y-4">
+                <div className="p-4 space-y-4">
                   {/* Price and Details */}
                   <div className="space-y-1">
                     <h3 className="text-lg font-bold text-[#111] leading-[150%]">
@@ -312,7 +277,7 @@ export default function Index() {
                     </div>
                   )}
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
