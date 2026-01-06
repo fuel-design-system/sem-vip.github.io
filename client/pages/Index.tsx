@@ -141,9 +141,9 @@ export default function Index() {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-satoshi">
+    <div className="min-h-screen bg-[#F4F4F5] font-satoshi">
       {/* Mobile container */}
-      <div className="mx-auto max-w-[360px] bg-white min-h-screen relative">
+      <div className="mx-auto max-w-[360px] bg-[#F4F4F5] min-h-screen relative">
         {/* Android Status Bar */}
         <div className="h-6 bg-white flex items-center justify-between px-3">
           <span className="text-sm font-medium text-[#111] font-roboto">12:30</span>
