@@ -47,3 +47,34 @@ function expressPlugin(): Plugin {
     },
   };
 }
+
+function manifestPlugin(basePath: string, mode: string): Plugin {
+  return {
+    name: "manifest-plugin",
+    apply: "build",
+    closeBundle() {
+      if (mode !== 'production') return;
+
+      // Update manifest.json
+      const manifestPath = path.resolve(__dirname, "dist/spa/manifest.json");
+      if (fs.existsSync(manifestPath)) {
+        const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+        manifest.start_url = basePath;
+        manifest.scope = basePath;
+        manifest.icons = manifest.icons.map((icon: any) => ({
+          ...icon,
+          src: icon.src.replace(/^\//, basePath)
+        }));
+        fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+      }
+
+      // Update service worker
+      const swPath = path.resolve(__dirname, "dist/spa/sw.js");
+      if (fs.existsSync(swPath)) {
+        let swContent = fs.readFileSync(swPath, 'utf-8');
+        // The BASE_PATH is already set in the sw.js file, no need to replace
+        fs.writeFileSync(swPath, swContent);
+      }
+    }
+  };
+}
