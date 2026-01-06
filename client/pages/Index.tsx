@@ -59,10 +59,10 @@ export default function Index() {
           </div>
 
           {/* Freight Cards */}
-          <div className="space-y-6">
+          <div className="space-y-2">
             {freights.map((freight) => (
-              <FreightCard 
-                key={freight.id} 
+              <FreightCard
+                key={freight.id}
                 freight={freight}
                 onClick={() => console.log('Clicked freight:', freight.id)}
               />
