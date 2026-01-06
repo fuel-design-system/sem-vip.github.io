@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fretebras-v11';
+const CACHE_NAME = 'fretebras-v12';
 
 // Detect base path automatically based on the location
 const getBasePath = () => {
