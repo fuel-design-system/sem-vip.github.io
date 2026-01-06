@@ -28,6 +28,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Configure NPM for private packages
+        run: |
+          echo "@frete.com:registry=https://registry.npmjs.org/" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+
       - name: Install dependencies
         run: npm install
 
