@@ -9,7 +9,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-[#F4F4F5] font-satoshi">
       {/* Mobile container */}
-      <div className="mx-auto max-w-[360px] bg-[#F4F4F5] min-h-screen relative">
+      <div className="w-full bg-[#F4F4F5] min-h-screen relative">
         {/* Content */}
         <div className="px-4 pt-3 pb-24">
           {/* Search Bar + Avatar */}
@@ -71,7 +71,7 @@ export default function Index() {
         </div>
 
         {/* Bottom Navigation - Fixed */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[rgba(0,43,92,0.06)] max-w-[360px] mx-auto">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[rgba(0,43,92,0.06)]">
           <div className="flex items-center justify-around h-[88px] px-2">
             <button className="flex flex-col items-center justify-center gap-1 flex-1 rounded-[100px] py-2">
               <Home className="w-6 h-6 fill-[#0769DA] text-[#0769DA]" />

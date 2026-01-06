@@ -8,8 +8,8 @@ interface FreightCardProps {
 
 export function FreightCard({ freight, onClick }: FreightCardProps) {
   return (
-    <div 
-      className="relative rounded-xl shadow-[0_1px_3px_rgba(17,17,17,0.06),0_1px_2px_rgba(17,17,17,0.12)] bg-white overflow-hidden cursor-pointer hover:shadow-[0_2px_4px_rgba(17,17,17,0.08),0_2px_3px_rgba(17,17,17,0.14)] transition-shadow"
+    <div
+      className="relative rounded-xl bg-white overflow-hidden cursor-pointer"
       onClick={onClick}
     >
       {/* Card Content */}
