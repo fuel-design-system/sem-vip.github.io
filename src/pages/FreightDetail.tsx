@@ -40,11 +40,11 @@ export default function FreightDetail() {
             <div className="route-details">
               <div className="location-block">
                 <div className="city-name">{freight.origin}</div>
-                <div className="date-info">30/11/2023</div>
+                <div className="date-info">14/01/2026</div>
               </div>
               <div className="location-block">
                 <div className="city-name">{freight.destination}</div>
-                <div className="date-info">01/12/2023</div>
+                <div className="date-info">15/01/2026</div>
               </div>
             </div>
           </div>
