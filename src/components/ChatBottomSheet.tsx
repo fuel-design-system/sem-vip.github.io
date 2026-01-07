@@ -61,8 +61,6 @@ export default function ChatBottomSheet({ isOpen, onClose }: ChatBottomSheetProp
     e.stopPropagation();
   };
 
-  if (!isOpen) return null;
-
   return (
     <div className={`chat-bottom-sheet-overlay ${isOpen ? 'open' : ''}`} onClick={handleOverlayClick}>
       <div className={`chat-bottom-sheet ${isOpen ? 'open' : ''}`} onClick={handleContentClick}>
