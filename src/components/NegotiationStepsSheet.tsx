@@ -20,8 +20,6 @@ export default function NegotiationStepsSheet({ isOpen, onClose, currentStep }: 
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
     <>
       <div className={`sheet-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}></div>
