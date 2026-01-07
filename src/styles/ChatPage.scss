@@ -176,11 +176,18 @@
             content: '';
             position: absolute;
             top: 12px;
-            left: calc(50% + 12px);
-            width: 56px;
+            left: calc(50% + 16px);
+            width: 48px;
             height: 0;
             border-top: 1px dashed #DFE1E6;
             z-index: 0;
+          }
+        }
+
+        &.active:not(:last-child) {
+          &::after {
+            top: 16px;
+            left: calc(50% + 20px);
           }
         }
 
