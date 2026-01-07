@@ -155,15 +155,8 @@ export default function ChatPage() {
   };
 
   const handleStepChange = (step: number) => {
-    // Ao mudar para um step posterior, marca os anteriores como completados
-    const newCompleted = [...completedTabs];
-    for (let i = 1; i < step; i++) {
-      if (!newCompleted.includes(i)) {
-        newCompleted.push(i);
-      }
-    }
-    setCompletedTabs(newCompleted);
-    setActiveTab(step);
+    // Abre o bottom sheet ao clicar em qualquer step
+    setIsStepsSheetOpen(true);
   };
 
   const simulateUserResponse = (contactMessage: string) => {
