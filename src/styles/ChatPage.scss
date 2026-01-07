@@ -154,8 +154,8 @@
       position: relative;
 
       .route-info-card {
-        position: absolute;
-        top: 8px;
+        position: fixed;
+        top: 64px;
         left: 0;
         right: 0;
         display: flex;
@@ -194,6 +194,7 @@
             align-items: center;
             gap: 7.5px;
             flex-shrink: 0;
+            margin-top: 8px;
           }
 
           .route-text {
