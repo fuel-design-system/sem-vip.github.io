@@ -20,6 +20,7 @@ export default function ChatPage() {
   const [isExiting, setIsExiting] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
   const [message, setMessage] = useState('');
+  const [completedTabs, setCompletedTabs] = useState<number[]>([]);
 
   const contact = contacts[contactId || '1'];
 
@@ -76,30 +77,51 @@ export default function ChatPage() {
       {/* Bottom Tabs and Input */}
       <div className="chat-bottom">
         <div className="chat-tabs">
-          <button 
-            className={`tab-item ${activeTab === 1 ? 'active' : ''}`}
+          <button
+            className={`tab-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
             onClick={() => setActiveTab(1)}
           >
             <div className="tab-badge">
-              <span>1</span>
+              {completedTabs.includes(1) ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
+                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
+                </svg>
+              ) : (
+                <span>1</span>
+              )}
             </div>
             <div className="tab-label">Negociação</div>
           </button>
-          <button 
-            className={`tab-item ${activeTab === 2 ? 'active' : ''}`}
+          <button
+            className={`tab-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
             onClick={() => setActiveTab(2)}
           >
             <div className="tab-badge">
-              <span>2</span>
+              {completedTabs.includes(2) ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
+                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
+                </svg>
+              ) : (
+                <span>2</span>
+              )}
             </div>
             <div className="tab-label">Documentos</div>
           </button>
-          <button 
-            className={`tab-item ${activeTab === 3 ? 'active' : ''}`}
+          <button
+            className={`tab-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
             onClick={() => setActiveTab(3)}
           >
             <div className="tab-badge">
-              <span>3</span>
+              {completedTabs.includes(3) ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
+                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
+                </svg>
+              ) : (
+                <span>3</span>
+              )}
             </div>
             <div className="tab-label">Fechamento</div>
           </button>
