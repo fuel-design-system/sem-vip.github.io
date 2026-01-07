@@ -137,7 +137,14 @@ export default function ChatPage() {
                         </svg>
                       )}
                     </div>
-                    <div className="message-text">{msg.text}</div>
+                    <div className="message-text">
+                      {msg.text.split('\n\n').map((line, index) => (
+                        <span key={index}>
+                          {index === 1 ? <strong>{line}</strong> : line}
+                          {index < msg.text.split('\n\n').length - 1 && <><br /><br /></>}
+                        </span>
+                      ))}
+                    </div>
                     <div className="message-footer">
                       {msg.isRead && (
                         <svg className="read-status" width="16" height="16" viewBox="0 0 16 16" fill="none">
