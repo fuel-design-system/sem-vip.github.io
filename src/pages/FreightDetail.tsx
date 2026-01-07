@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/FreightDetail.scss';
 import freightsData from '../data/freights.json';
@@ -8,6 +8,11 @@ export default function FreightDetail() {
   const { id } = useParams();
   const [isExiting, setIsExiting] = useState(false);
   const freight = freightsData.find(f => f.id === Number(id));
+
+  // Garante que a página sempre inicie no topo
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!freight) {
     return <div>Frete não encontrado</div>;
