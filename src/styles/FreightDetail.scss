@@ -223,10 +223,6 @@
     flex-direction: column;
     gap: 16px;
 
-    &.detail-card {
-      padding: 24px;
-    }
-
     .fee-title {
       color: #111;
       font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
@@ -329,10 +325,6 @@
     flex-direction: column;
     gap: 16px;
 
-    &.detail-card {
-      padding: 24px;
-    }
-
     .company-info {
       display: flex;
       flex-direction: column;
@@ -395,11 +387,6 @@
     }
   }
 
-  .payment-section {
-    &.detail-card {
-      padding: 24px;
-    }
-  }
 
   .payment-methods {
     display: flex;
@@ -428,11 +415,6 @@
     }
   }
 
-  .problems-section {
-    &.detail-card {
-      padding: 24px;
-    }
-  }
 
   .support-button {
     display: flex;
@@ -464,10 +446,6 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-
-    &.detail-card {
-      padding: 24px;
-    }
 
     .return-header {
       display: flex;
