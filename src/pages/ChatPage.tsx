@@ -79,7 +79,7 @@ export default function ChatPage() {
 
   // Simula a primeira resposta automática do usuário
   useEffect(() => {
-    if (messages.length === 1) {
+    if (messages.length === 1 && !hasAutoReplied) {
       const timer = setTimeout(() => {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
@@ -94,6 +94,7 @@ export default function ChatPage() {
         };
 
         setMessages(prev => [...prev, userMessage]);
+        setHasAutoReplied(true);
 
         // Simula resposta do contato após a mensagem do usuário
         simulateContactResponse('truck');
@@ -101,7 +102,7 @@ export default function ChatPage() {
 
       return () => clearTimeout(timer);
     }
-  }, [messages.length]);
+  }, [messages.length, hasAutoReplied]);
 
   const contact = contacts[contactId || '1'];
 
