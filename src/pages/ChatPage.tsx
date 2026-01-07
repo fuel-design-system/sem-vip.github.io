@@ -165,7 +165,11 @@ export default function ChatPage() {
           <div
             className="stepper-divider-active"
             style={{
-              width: activeTab === 1 ? '0%' : activeTab === 2 ? '50%' : '100%'
+              width:
+                completedTabs.includes(3) ? '100%' :
+                activeTab === 3 || completedTabs.includes(2) ? '66%' :
+                activeTab === 2 || completedTabs.includes(1) ? '33%' :
+                '16%'
             }}
           ></div>
         </div>
