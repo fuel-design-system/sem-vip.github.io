@@ -43,19 +43,26 @@ export default function ChatPage() {
     'Quanto está pagando?',
     'Consegue melhorar o preço?'
   ];
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      sender: 'contact',
-      senderName: 'Rafael T (DDD 11)',
-      senderInitial: 'R',
-      senderRating: '4.9',
-      senderVehicle: 'Bitruck | Graneleiro',
-      text: 'Olá. Estou interessado no seu frete de Curitiba-PR para Porto Alegre-RS de Eletrônicos.\n\nA carga ainda está disponível?',
-      timestamp: '09:41',
-      isRead: true,
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timestamp = `${hours}:${minutes}`;
+
+    return [
+      {
+        id: '1',
+        sender: 'contact',
+        senderName: 'Rafael T (DDD 11)',
+        senderInitial: 'R',
+        senderRating: '4.9',
+        senderVehicle: 'Bitruck | Graneleiro',
+        text: 'Olá. Estou interessado no seu frete de Curitiba-PR para Porto Alegre-RS de Eletrônicos.\n\nA carga ainda está disponível?',
+        timestamp,
+        isRead: true,
+      },
+    ];
+  });
 
   // Script de conversa simulada
   const conversationScript: { [key: string]: string } = {
