@@ -31,6 +31,18 @@ export default function ChatPage() {
     }, 300);
   };
 
+  const handleStepChange = (step: number) => {
+    // Ao mudar para um step posterior, marca os anteriores como completados
+    const newCompleted = [...completedTabs];
+    for (let i = 1; i < step; i++) {
+      if (!newCompleted.includes(i)) {
+        newCompleted.push(i);
+      }
+    }
+    setCompletedTabs(newCompleted);
+    setActiveTab(step);
+  };
+
   if (!contact) {
     return <div>Contato não encontrado</div>;
   }
@@ -91,7 +103,7 @@ export default function ChatPage() {
         <div className="chat-stepper">
           <button
             className={`step-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
-            onClick={() => setActiveTab(1)}
+            onClick={() => handleStepChange(1)}
           >
             <div className="step-badge-wrapper">
               {activeTab === 1 && !completedTabs.includes(1) && (
@@ -111,7 +123,7 @@ export default function ChatPage() {
           </button>
           <button
             className={`step-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
-            onClick={() => setActiveTab(2)}
+            onClick={() => handleStepChange(2)}
           >
             <div className="step-badge-wrapper">
               {activeTab === 2 && !completedTabs.includes(2) && (
@@ -131,7 +143,7 @@ export default function ChatPage() {
           </button>
           <button
             className={`step-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
-            onClick={() => setActiveTab(3)}
+            onClick={() => handleStepChange(3)}
           >
             <div className="step-badge-wrapper">
               {activeTab === 3 && !completedTabs.includes(3) && (
