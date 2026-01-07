@@ -100,8 +100,10 @@
   align-items: center;
   gap: $space-1;
   border-radius: $radius-pill;
-  background-color: $bg-weak;
+  background-color: $bg-default;
   margin-top: -8px;
+  position: relative;
+  z-index: 1;
 }
 
 .rating-content {
