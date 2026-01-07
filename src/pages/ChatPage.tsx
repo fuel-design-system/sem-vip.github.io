@@ -34,6 +34,20 @@ export default function ChatPage() {
   const [activeTab, setActiveTab] = useState(1);
   const [message, setMessage] = useState('');
   const [completedTabs, setCompletedTabs] = useState<number[]>([]);
+  const [messages] = useState<Message[]>([
+    {
+      id: '1',
+      sender: 'contact',
+      senderName: 'Rafael T (DDD 11)',
+      senderInitial: 'R',
+      senderRating: '4.9',
+      senderVehicle: 'Bitruck | Graneleiro',
+      isVerified: true,
+      text: 'Olá. Estou interessado no seu frete de Curitiba-PR para Porto Alegre-RS de Eletrônicos.\n\nA carga ainda está disponível?',
+      timestamp: '09:41',
+      isRead: true,
+    },
+  ]);
 
   const contact = contacts[contactId || '1'];
 
