@@ -34,6 +34,7 @@ export default function ChatPage() {
   const [message, setMessage] = useState('');
   const [completedTabs, setCompletedTabs] = useState<number[]>([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [hasAutoReplied, setHasAutoReplied] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const quickReplies = [
