@@ -76,6 +76,32 @@ export default function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Simula a primeira resposta automática do usuário
+  useEffect(() => {
+    if (messages.length === 1) {
+      const timer = setTimeout(() => {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const timestamp = `${hours}:${minutes}`;
+
+        const userMessage: Message = {
+          id: '2',
+          sender: 'user',
+          text: 'Sim, seu veículo é truck?',
+          timestamp,
+        };
+
+        setMessages(prev => [...prev, userMessage]);
+
+        // Simula resposta do contato após a mensagem do usuário
+        simulateContactResponse('truck');
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [messages.length]);
+
   const contact = contacts[contactId || '1'];
 
   const handleBackClick = () => {
