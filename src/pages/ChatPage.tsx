@@ -92,6 +92,43 @@ export default function ChatPage() {
     setActiveTab(step);
   };
 
+  const simulateContactResponse = (userMessage: string) => {
+    const lowerMessage = userMessage.toLowerCase();
+    let response = conversationScript.default;
+
+    // Verifica qual palavra-chave corresponde à mensagem
+    for (const [key, value] of Object.entries(conversationScript)) {
+      if (lowerMessage.includes(key)) {
+        response = value;
+        break;
+      }
+    }
+
+    // Simula delay de digitação (2-4 segundos)
+    const delay = Math.random() * 2000 + 2000;
+
+    setTimeout(() => {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timestamp = `${hours}:${minutes}`;
+
+      const contactMessage: Message = {
+        id: String(Date.now()),
+        sender: 'contact',
+        senderName: 'Rafael T (DDD 11)',
+        senderInitial: 'R',
+        senderRating: '4.9',
+        senderVehicle: 'Bitruck | Graneleiro',
+        text: response,
+        timestamp,
+        isRead: true,
+      };
+
+      setMessages(prev => [...prev, contactMessage]);
+    }, delay);
+  };
+
   const handleSendMessage = () => {
     if (message.trim() === '') return;
 
@@ -100,10 +137,12 @@ export default function ChatPage() {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const timestamp = `${hours}:${minutes}`;
 
+    const userMessageText = message.trim();
+
     const newMessage: Message = {
       id: String(Date.now()),
       sender: 'user',
-      text: message.trim(),
+      text: userMessageText,
       timestamp,
     };
 
@@ -113,6 +152,9 @@ export default function ChatPage() {
 
     // Remove o foco do input
     (document.activeElement as HTMLElement)?.blur();
+
+    // Simula resposta do contato
+    simulateContactResponse(userMessageText);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
