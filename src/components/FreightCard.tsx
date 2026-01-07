@@ -36,7 +36,6 @@ export default function FreightCard({
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    console.log('Card clicked, navigating to:', `/freight/${id}`);
     navigate(`/freight/${id}`);
   };
 
