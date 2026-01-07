@@ -165,9 +165,10 @@
             flex-direction: column;
             max-width: 328px;
             gap: 12px;
-            padding: 12px;
+            padding: 0;
             border-radius: 12px 12px 2px 12px;
             background: #003C80;
+            overflow: hidden;
 
             .message-header {
               display: flex;
