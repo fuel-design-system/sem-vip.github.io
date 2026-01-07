@@ -109,7 +109,6 @@ export default function ChatPage() {
       timestamp,
     };
 
-    console.log('Nova mensagem:', newMessage);
     setMessages(prev => [...prev, newMessage]);
     setMessage('');
     setIsInputFocused(false);
