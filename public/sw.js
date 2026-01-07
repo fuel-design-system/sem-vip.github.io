@@ -16,6 +16,7 @@ console.log('[ServiceWorker] Base path detected:', BASE_PATH || '(root)');
 const urlsToCache = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/404.html`,
   `${BASE_PATH}/manifest.json`,
   `${BASE_PATH}/icon-192.svg`,
   `${BASE_PATH}/icon-512.svg`,
