@@ -163,7 +163,8 @@
           .message-stack {
             display: flex;
             flex-direction: column;
-            max-width: 328px;
+            max-width: 316px;
+            width: fit-content;
             gap: 0;
             padding: 8px;
             border-radius: 12px 12px 2px 12px;
