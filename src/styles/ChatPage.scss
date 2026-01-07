@@ -225,6 +225,25 @@
           transition: all 0.2s;
         }
 
+        &.completed {
+          .tab-badge {
+            background: transparent;
+            border: none;
+            width: 24px;
+            height: 24px;
+
+            svg {
+              width: 24px;
+              height: 24px;
+            }
+          }
+
+          .tab-label {
+            color: #636B7E;
+            font-weight: 500;
+          }
+        }
+
         &.active {
           .tab-badge {
             background: #0C884C;
@@ -240,6 +259,19 @@
           .tab-label {
             color: #111;
             font-weight: 700;
+          }
+        }
+
+        &.active.completed {
+          .tab-badge {
+            width: 32px;
+            height: 32px;
+            border: 4px solid rgba(12, 136, 76, 0.24);
+
+            svg {
+              width: 24px;
+              height: 24px;
+            }
           }
         }
       }
