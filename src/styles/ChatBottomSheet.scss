@@ -7,7 +7,7 @@
   background: rgba(0, 0, 0, 0);
   z-index: 1000;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 
   &.open {
@@ -26,8 +26,9 @@
   border-radius: 24px 24px 0 0;
   box-shadow: 0 6px 12px -6px rgba(38, 47, 74, 0.12), 0 8px 24px -4px rgba(38, 47, 74, 0.08);
   transform: translateY(100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   z-index: 1001;
+  will-change: transform;
 
   &.open {
     transform: translateY(0);
@@ -220,7 +221,8 @@
     left: 50%;
     transform: translateX(-50%) translateY(100%);
     max-width: 500px;
-    
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
     &.open {
       transform: translateX(-50%) translateY(0);
     }
