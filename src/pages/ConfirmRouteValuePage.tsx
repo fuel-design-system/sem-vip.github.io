@@ -28,7 +28,7 @@ export default function ConfirmRouteValuePage() {
     <div className={`confirm-route-value-page ${isExiting ? 'exiting' : ''}`}>
       {/* Top Bar */}
       <div className="top-bar">
-        <button className="back-button" onClick={handleBackClick}>
+        <button className="close-button" onClick={handleBackClick}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.95185 17.6537L4.29785 11.9999L9.95185 6.34619L11.0056 7.43069L7.18635 11.2499H19.7019V12.7499H7.18635L11.0056 16.5692L9.95185 17.6537Z" fill="#111111"/>
           </svg>
