@@ -341,7 +341,7 @@ export default function ChatPage() {
             </div>
           </div>
           {message.length > 0 || isInputFocused ? (
-            <button className="send-button">
+            <button className="send-button" onClick={handleSendMessage}>
               <svg width="33" height="33" viewBox="0 0 34 34" fill="none">
                 <path d="M4.86133 26.7361V18.9013L14.1756 16.6666L4.86133 14.3947V6.59717L28.7662 16.6666L4.86133 26.7361Z" fill="white"/>
               </svg>
