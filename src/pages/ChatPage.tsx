@@ -162,6 +162,12 @@ export default function ChatPage() {
             <div className="step-label">Fechamento</div>
           </button>
           <div className="stepper-divider"></div>
+          <div
+            className="stepper-divider-active"
+            style={{
+              width: activeTab === 1 ? '0%' : activeTab === 2 ? '50%' : '100%'
+            }}
+          ></div>
         </div>
 
         <div className="message-input-container">
