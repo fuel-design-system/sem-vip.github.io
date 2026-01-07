@@ -71,7 +71,19 @@ export default function ChatPage() {
 
       {/* Chat Area */}
       <div className="chat-area">
-        {/* Área vazia para mensagens futuras */}
+        {activeTab === 2 && (
+          <div className="documents-content">
+            <div className="documents-empty">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <path d="M13.3333 10C13.3333 7.79086 15.1242 6 17.3333 6H42L60 24V70C60 72.2091 58.2091 74 56 74H17.3333C15.1242 74 13.3333 72.2091 13.3333 70V10Z" fill="#F4F4F5"/>
+                <path d="M42 6L60 24H42V6Z" fill="#DFE1E6"/>
+                <path d="M23.3333 36H50M23.3333 46H50M23.3333 56H40" stroke="#BABEC9" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <div className="empty-title">Nenhum documento enviado</div>
+              <div className="empty-subtitle">Os documentos compartilhados aparecerão aqui</div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Bottom Tabs and Input */}
