@@ -52,7 +52,18 @@ export default function ChatPage() {
     'Quanto está pagando?',
     'Consegue melhorar o preço?'
   ];
+
+  // Chave única para cada conversa
+  const chatStorageKey = `chat_${freightId}_${contactId}`;
+
   const [messages, setMessages] = useState<Message[]>(() => {
+    // Tenta recuperar mensagens do sessionStorage
+    const savedMessages = sessionStorage.getItem(chatStorageKey);
+    if (savedMessages) {
+      return JSON.parse(savedMessages);
+    }
+
+    // Se não houver mensagens salvas, cria a inicial
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -72,6 +83,11 @@ export default function ChatPage() {
       },
     ];
   });
+
+  // Salva mensagens no sessionStorage sempre que mudam
+  useEffect(() => {
+    sessionStorage.setItem(chatStorageKey, JSON.stringify(messages));
+  }, [messages, chatStorageKey]);
 
   // Script de conversa com etapas definidas
   const conversationFlowSteps = [
