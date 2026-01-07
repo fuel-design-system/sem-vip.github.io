@@ -1,4 +1,6 @@
 import '../styles/Home.scss';
+import FreightCard from '../components/FreightCard';
+import freightsData from '../data/freights.json';
 
 export default function Home() {
   return (
@@ -47,7 +49,7 @@ export default function Home() {
 
         {/* Filtros com Chips */}
         <div className="filters-container">
-          <div className="chip chip-active">
+          <div className="chip chip-first">
             <span className="chip-label">Tipo de carga</span>
             <svg className="chevron-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 6L8.18844 9.91964C8.13849 9.97109 8.0707 10 8 10C7.9293 10 7.86151 9.97109 7.81156 9.91964L4 6" stroke="#111111" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
@@ -68,10 +70,32 @@ export default function Home() {
             </svg>
           </div>
 
-          <div className="chip">
+          <div className="chip chip-last">
             <span className="chip-label">Raio</span>
           </div>
         </div>
+      </div>
+
+      {/* Cards de Fretes */}
+      <div className="freight-cards-container">
+        {freightsData.map((freight) => (
+          <FreightCard
+            key={freight.id}
+            price={freight.price}
+            isNew={freight.isNew}
+            isVip={freight.isVip}
+            priceType={freight.priceType}
+            chargeType={freight.chargeType}
+            loadType={freight.loadType}
+            weight={freight.weight}
+            distance={freight.distance}
+            product={freight.product}
+            origin={freight.origin}
+            destination={freight.destination}
+            company={freight.company}
+            companyAvatar={freight.companyAvatar}
+          />
+        ))}
       </div>
     </div>
   );

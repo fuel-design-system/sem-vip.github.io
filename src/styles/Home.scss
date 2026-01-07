@@ -191,6 +191,14 @@
   flex-shrink: 0;
 }
 
+// Cards de Fretes
+.freight-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: 0 $space-4;
+}
+
 // Responsividade
 @media (min-width: 768px) {
   .home-header {
@@ -198,6 +206,10 @@
   }
 
   .search-profile-container {
+    padding: 0 32px;
+  }
+
+  .freight-cards-container {
     padding: 0 32px;
   }
 }
@@ -210,6 +222,10 @@
   }
 
   .search-profile-container {
+    padding: 0 48px;
+  }
+
+  .freight-cards-container {
     padding: 0 48px;
   }
 }
