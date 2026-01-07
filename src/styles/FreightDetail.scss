@@ -121,6 +121,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 150%;
+    margin-bottom: 24px;
   }
 
   .cargo-section,
@@ -129,6 +130,11 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     .section-title {
       color: #636B7E;
