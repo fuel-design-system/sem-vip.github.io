@@ -11,7 +11,7 @@ export default function NegotiationStepsSheet({ isOpen, onClose, currentStep }: 
 
   return (
     <>
-      <div className="sheet-overlay" onClick={onClose}></div>
+      <div className={`sheet-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}></div>
       <div className={`negotiation-steps-sheet ${isOpen ? 'open' : ''}`}>
         <div className="sheet-content">
           {/* Header */}
