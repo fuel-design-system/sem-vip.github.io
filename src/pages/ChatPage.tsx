@@ -605,6 +605,12 @@ export default function ChatPage() {
           )}
         </div>
       </div>
+
+      <NegotiationStepsSheet
+        isOpen={isStepsSheetOpen}
+        onClose={() => setIsStepsSheetOpen(false)}
+        currentStep={activeTab}
+      />
     </div>
   );
 }
