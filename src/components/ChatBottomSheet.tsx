@@ -20,7 +20,7 @@ export default function ChatBottomSheet({ isOpen, onClose }: ChatBottomSheetProp
     {
       id: '1',
       name: 'Carlos S.',
-      avatar: 'https://cdn.builder.io/api/v1/image/assets%2F7de6902bb7ea42d4be5082a42dd00e60%2Fb18d9b635d514b509474d0d0a21a532c?format=webp&width=800',
+      avatar: 'https://cdn.builder.io/api/v1/image/assets%2F7de6902bb7ea42d4be5082a42dd00e60%2Fd2326185d8c14e199fd0ea93d543d691?format=webp&width=800',
       initials: 'CS',
       isOnline: true,
       fastResponse: true,
