@@ -77,7 +77,7 @@ export default function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Simula a primeira resposta automática do usuário
+  // Simula a primeira resposta automática do usuário (branco, esquerda)
   useEffect(() => {
     if (messages.length === 1 && !hasAutoReplied) {
       const timer = setTimeout(() => {
@@ -95,9 +95,6 @@ export default function ChatPage() {
 
         setMessages(prev => [...prev, userMessage]);
         setHasAutoReplied(true);
-
-        // Simula resposta do contato após a mensagem do usuário
-        simulateContactResponse('truck');
       }, 3000);
 
       return () => clearTimeout(timer);
