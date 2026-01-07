@@ -21,16 +21,16 @@ export default function FreightDetail() {
               <path d="M9.95185 17.6537L4.29785 11.9999L9.95185 6.34619L11.0056 7.43069L7.18635 11.2499H19.7019V12.7499H7.18635L11.0056 16.5692L9.95185 17.6537Z" fill="#111111"/>
             </svg>
           </button>
-          <h1 className="page-title">Frete MG-SP, Pedras</h1>
-        </div>
-
-        {/* Time Info */}
-        <div className="time-info">
-          Há 3min • 50km da sua localização
+          <h1 className="page-title">{freight.origin.split(',')[1]?.trim()}-{freight.destination.split(',')[1]?.trim()}, {freight.product}</h1>
         </div>
 
         {/* Route Card */}
         <div className="detail-card">
+          {/* Time Info */}
+          <div className="time-info">
+            Há 3min • 50km da sua localização
+          </div>
+
           <div className="route-section">
             <svg className="route-graphic" width="7" height="90" viewBox="0 0 7 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="3.5" cy="7.5" r="3" stroke="#BABEC9"/>
@@ -66,13 +66,13 @@ export default function FreightDetail() {
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0.5 3.5C3.42893 2.32843 5.07107 1.67157 8 0.5L15.5 3.5M0.5 3.5L8 6.5M0.5 3.5V12.5L8 15.5M8 6.5L15.5 3.5M8 6.5V15.5M15.5 3.5V12.5L8 15.5M13.75 11L12.5 11.5" stroke="#636B7E" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span>Pedras</span>
+                <span>{freight.product}</span>
               </div>
               <div className="cargo-item">
                 <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0.513672 4.68359L2.49121 0.774306C2.57631 0.606062 2.74883 0.5 2.93737 0.5H7.52892M14.1563 4.68359L12.5837 0.811849C12.5071 0.623319 12.324 0.5 12.1205 0.5H7.52892M12.5837 13.1121H8.32526M7.52892 0.5V4.34143M7.52892 4.34143H0.5V14.9979H14.1561V4.34143H7.52892Z" stroke="black" strokeLinejoin="bevel"/>
                 </svg>
-                <span>500 kg (total)</span>
+                <span>{freight.weight} (total)</span>
               </div>
               <div className="cargo-item-row">
                 <div className="cargo-item">
@@ -198,7 +198,7 @@ export default function FreightDetail() {
         <div className="detail-card return-section">
           <div className="return-header">
             <div className="return-title">Garanta sua volta</div>
-            <div className="return-subtitle">De Catalão e região para Aguaí, SP</div>
+            <div className="return-subtitle">De {freight.destination.split(',')[0]} e região para {freight.origin.split(',')[0]}, {freight.origin.split(',')[1]?.trim()}</div>
           </div>
           <div className="return-info">
             <div className="return-item">
