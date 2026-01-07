@@ -88,54 +88,66 @@ export default function ChatPage() {
 
       {/* Bottom Tabs and Input */}
       <div className="chat-bottom">
-        <div className="chat-tabs">
+        <div className="chat-stepper">
           <button
-            className={`tab-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
+            className={`step-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
             onClick={() => setActiveTab(1)}
           >
-            <div className="tab-badge">
-              {completedTabs.includes(1) ? (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
-                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
-                </svg>
-              ) : (
-                <span>1</span>
+            <div className="step-badge-wrapper">
+              {activeTab === 1 && !completedTabs.includes(1) && (
+                <div className="pulse"></div>
               )}
+              <div className="step-badge">
+                {completedTabs.includes(1) ? (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="white"/>
+                  </svg>
+                ) : (
+                  <span>1</span>
+                )}
+              </div>
             </div>
-            <div className="tab-label">Negociação</div>
+            <div className="step-label">Negociação</div>
           </button>
           <button
-            className={`tab-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
+            className={`step-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
             onClick={() => setActiveTab(2)}
           >
-            <div className="tab-badge">
-              {completedTabs.includes(2) ? (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
-                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
-                </svg>
-              ) : (
-                <span>2</span>
+            <div className="step-badge-wrapper">
+              {activeTab === 2 && !completedTabs.includes(2) && (
+                <div className="pulse"></div>
               )}
+              <div className="step-badge">
+                {completedTabs.includes(2) ? (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="white"/>
+                  </svg>
+                ) : (
+                  <span>2</span>
+                )}
+              </div>
             </div>
-            <div className="tab-label">Documentos</div>
+            <div className="step-label">Documentos</div>
           </button>
           <button
-            className={`tab-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
+            className={`step-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
             onClick={() => setActiveTab(3)}
           >
-            <div className="tab-badge">
-              {completedTabs.includes(3) ? (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect width="24" height="24" rx="12" fill="#0C884C"/>
-                  <path d="M10.3669 16.0083L6.56689 12.2083L7.51689 11.2583L10.3669 14.1083L16.4836 7.99167L17.4336 8.94167L10.3669 16.0083Z" fill="white"/>
-                </svg>
-              ) : (
-                <span>3</span>
+            <div className="step-badge-wrapper">
+              {activeTab === 3 && !completedTabs.includes(3) && (
+                <div className="pulse"></div>
               )}
+              <div className="step-badge">
+                {completedTabs.includes(3) ? (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="white"/>
+                  </svg>
+                ) : (
+                  <span>3</span>
+                )}
+              </div>
             </div>
-            <div className="tab-label">Fechamento</div>
+            <div className="step-label">Fechamento</div>
           </button>
         </div>
 
