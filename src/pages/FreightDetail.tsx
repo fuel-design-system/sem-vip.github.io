@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/FreightDetail.scss';
 import freightsData from '../data/freights.json';
@@ -5,18 +6,26 @@ import freightsData from '../data/freights.json';
 export default function FreightDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isExiting, setIsExiting] = useState(false);
   const freight = freightsData.find(f => f.id === Number(id));
 
   if (!freight) {
     return <div>Frete não encontrado</div>;
   }
 
+  const handleBackClick = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      navigate(-1);
+    }, 300);
+  };
+
   return (
-    <div className="freight-detail-page">
+    <div className={`freight-detail-page ${isExiting ? 'exiting' : ''}`}>
       <div className="detail-content">
         {/* Top Bar */}
         <div className="top-bar">
-          <button className="back-button" onClick={() => navigate(-1)}>
+          <button className="back-button" onClick={handleBackClick}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9.95185 17.6537L4.29785 11.9999L9.95185 6.34619L11.0056 7.43069L7.18635 11.2499H19.7019V12.7499H7.18635L11.0056 16.5692L9.95185 17.6537Z" fill="#111111"/>
             </svg>
