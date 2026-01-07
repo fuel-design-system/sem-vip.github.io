@@ -169,6 +169,14 @@ export default function ChatPage() {
                     </div>
                   </div>
                 )}
+                {msg.sender === 'user' && (
+                  <div className="user-message">
+                    <div className="user-message-text">{msg.text}</div>
+                    <div className="user-message-footer">
+                      <span className="timestamp">{msg.timestamp}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
