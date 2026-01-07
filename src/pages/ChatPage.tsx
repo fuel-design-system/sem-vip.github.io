@@ -167,8 +167,8 @@ export default function ChatPage() {
             style={{
               width:
                 completedTabs.includes(3) ? '100%' :
-                activeTab === 3 || completedTabs.includes(2) ? '66%' :
-                activeTab === 2 || completedTabs.includes(1) ? '33%' :
+                activeTab === 3 || completedTabs.includes(2) ? '83%' :
+                activeTab === 2 || completedTabs.includes(1) ? '50%' :
                 '16%'
             }}
           ></div>
