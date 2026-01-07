@@ -313,8 +313,30 @@ export default function ChatPage() {
               const isFirstContactMessage = msg.sender === 'contact' && msgIndex === 0;
 
               return (
-                <div key={msg.id} className={`message ${msg.sender}`}>
-                  {msg.sender === 'contact' && (
+                <div key={msg.id} className={`message ${msg.sender} ${msg.type === 'document-request' ? 'document-request' : ''}`}>
+                  {msg.sender === 'contact' && msg.type === 'document-request' && (
+                    <div className="message-stack document-message">
+                      <div className="document-card">
+                        <div className="document-icon-wrapper">
+                          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.1076 19.6616H25.2924V17.846H13.1076V19.6616ZM13.1076 24.2768H25.2924V22.4616H13.1076V24.2768ZM13.1076 28.8924H20.4924V27.0768H13.1076V28.8924ZM7.20001 34.4V4H23.4092L31.2 11.7908V34.4H7.20001ZM22.5016 12.6092H29.3844L22.5016 5.8156V12.6092Z" fill="#0769DA"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="document-text">
+                        <span className="sender-name-bold">{msg.senderName}</span> {msg.text}
+                      </div>
+                      <div className="document-action">
+                        <button className="document-button" onClick={() => setActiveTab(2)}>
+                          Liberar meus documentos
+                        </button>
+                      </div>
+                      <div className="message-footer">
+                        <span className="timestamp">{msg.timestamp}</span>
+                      </div>
+                    </div>
+                  )}
+                  {msg.sender === 'contact' && msg.type !== 'document-request' && (
                     <div className="message-stack">
                       {isFirstContactMessage && (
                         <div className="message-header">
