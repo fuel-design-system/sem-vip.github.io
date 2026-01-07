@@ -59,12 +59,19 @@
     }
   }
 
+  .detail-card {
+    background: #FFF;
+    border-radius: 16px;
+    padding: 24px;
+  }
+
   .time-info {
     color: #636B7E;
     font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
     font-size: 14px;
     font-weight: 500;
     line-height: 150%;
+    padding: 0 24px;
   }
 
   .route-section {
