@@ -1,20 +1,31 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import FreightDetail from './pages/FreightDetail';
 import ChatPage from './pages/ChatPage';
 import DocumentsPage from './pages/DocumentsPage';
 import ConfirmRouteValuePage from './pages/ConfirmRouteValuePage';
+import PageTransition from './components/PageTransition';
 
-export default function App() {
+function AppRoutes() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter basename="/transacional.github.io">
-      <Routes>
+    <PageTransition key={location.pathname}>
+      <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/freight/:id" element={<FreightDetail />} />
         <Route path="/freight/:freightId/chat/:contactId" element={<ChatPage />} />
         <Route path="/freight/:freightId/chat/:contactId/documents" element={<DocumentsPage />} />
         <Route path="/freight/:freightId/chat/:contactId/confirm" element={<ConfirmRouteValuePage />} />
       </Routes>
+    </PageTransition>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter basename="/transacional.github.io">
+      <AppRoutes />
     </BrowserRouter>
   );
 }
