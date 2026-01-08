@@ -1,27 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export type NavigationDirection = 'forward' | 'backward' | 'none';
 
 // Define route depth to determine navigation direction
-const routeDepth: Record<string, number> = {
-  '/': 0,
-  '/freight/:id': 1,
-  '/freight/:freightId/chat/:contactId': 2,
-  '/freight/:freightId/chat/:contactId/documents': 3,
-  '/freight/:freightId/chat/:contactId/confirm': 3,
-};
-
 function getRouteDepth(pathname: string): number {
-  // Exact match
-  if (routeDepth[pathname] !== undefined) {
-    return routeDepth[pathname];
-  }
-
-  // Pattern matching
-  if (pathname === '/') return 0;
+  // Root
+  if (pathname === '/' || pathname === '') return 0;
+  
+  // Freight detail
   if (/^\/freight\/[^/]+$/.test(pathname)) return 1;
+  
+  // Chat
   if (/^\/freight\/[^/]+\/chat\/[^/]+$/.test(pathname)) return 2;
+  
+  // Documents or Confirm
   if (/^\/freight\/[^/]+\/chat\/[^/]+\/(documents|confirm)$/.test(pathname)) return 3;
 
   return 0;
@@ -29,22 +22,23 @@ function getRouteDepth(pathname: string): number {
 
 export function useNavigationDirection(): NavigationDirection {
   const location = useLocation();
-  const prevDepthRef = useRef<number>(0);
-  const directionRef = useRef<NavigationDirection>('none');
+  const prevDepthRef = useRef<number>(getRouteDepth(location.pathname));
+  const [direction, setDirection] = useState<NavigationDirection>('none');
 
   useEffect(() => {
     const currentDepth = getRouteDepth(location.pathname);
+    const prevDepth = prevDepthRef.current;
     
-    if (currentDepth > prevDepthRef.current) {
-      directionRef.current = 'forward';
-    } else if (currentDepth < prevDepthRef.current) {
-      directionRef.current = 'backward';
+    if (currentDepth > prevDepth) {
+      setDirection('forward');
+    } else if (currentDepth < prevDepth) {
+      setDirection('backward');
     } else {
-      directionRef.current = 'none';
+      setDirection('none');
     }
 
     prevDepthRef.current = currentDepth;
   }, [location.pathname]);
 
-  return directionRef.current;
+  return direction;
 }
