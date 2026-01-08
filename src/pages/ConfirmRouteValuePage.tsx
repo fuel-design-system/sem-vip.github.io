@@ -127,9 +127,15 @@ export default function ConfirmRouteValuePage() {
 
             {/* Checkbox */}
             <div className="checkbox-section">
-              <button 
+              <button
                 className={`checkbox ${notAgreedYet ? 'checked' : ''}`}
-                onClick={() => setNotAgreedYet(!notAgreedYet)}
+                onClick={() => {
+                  setNotAgreedYet(!notAgreedYet);
+                  // Limpa o erro quando marca/desmarca o checkbox
+                  if (hasError) {
+                    setHasError(false);
+                  }
+                }}
               >
                 <div className="checkbox-box">
                   {notAgreedYet && (
