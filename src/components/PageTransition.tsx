@@ -1,9 +1,9 @@
-import { ReactElement, useEffect, useState, useRef, cloneElement } from 'react';
+import { ReactNode, useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './PageTransition.scss';
 
 interface PageTransitionProps {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 function getRouteDepth(pathname: string): number {
@@ -16,50 +16,33 @@ function getRouteDepth(pathname: string): number {
 
 export default function PageTransition({ children }: PageTransitionProps) {
   const location = useLocation();
-  const [displayLocation, setDisplayLocation] = useState(location);
-  const [transitionClass, setTransitionClass] = useState('');
   const prevDepthRef = useRef(getRouteDepth(location.pathname));
-  const isTransitioningRef = useRef(false);
+  const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
-    if (location.pathname === displayLocation.pathname) return;
-    if (isTransitioningRef.current) return;
-
     const currentDepth = getRouteDepth(location.pathname);
     const prevDepth = prevDepthRef.current;
     
-    isTransitioningRef.current = true;
-
-    // Determine direction
-    let direction: 'forward' | 'backward' = 'forward';
-    if (currentDepth < prevDepth) {
-      direction = 'backward';
+    // Determine direction and set animation
+    if (currentDepth > prevDepth) {
+      setAnimationClass('slide-in-forward');
+    } else if (currentDepth < prevDepth) {
+      setAnimationClass('slide-in-backward');
     }
 
-    // Apply exit animation
-    setTransitionClass(direction === 'forward' ? 'exit-forward' : 'exit-backward');
+    prevDepthRef.current = currentDepth;
 
-    // After exit animation, update content and apply enter animation
+    // Remove animation class after animation completes
     const timer = setTimeout(() => {
-      setDisplayLocation(location);
-      setTransitionClass(direction === 'forward' ? 'enter-forward' : 'enter-backward');
-      prevDepthRef.current = currentDepth;
-
-      // Clear animation class after enter animation
-      const clearTimer = setTimeout(() => {
-        setTransitionClass('');
-        isTransitioningRef.current = false;
-      }, 300);
-
-      return () => clearTimeout(clearTimer);
-    }, 300);
+      setAnimationClass('');
+    }, 350);
 
     return () => clearTimeout(timer);
-  }, [location.pathname, displayLocation.pathname]);
+  }, [location.pathname]);
 
   return (
-    <div className={`page-transition ${transitionClass}`}>
-      {cloneElement(children, { location: displayLocation })}
+    <div className={`page-transition ${animationClass}`} key={location.pathname}>
+      {children}
     </div>
   );
 }
