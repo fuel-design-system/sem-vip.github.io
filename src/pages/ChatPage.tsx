@@ -142,9 +142,8 @@ export default function ChatPage() {
 
       setMessages(prev => [...prev, documentSubmittedMessage]);
 
-      // Marca a etapa 1 como concluída e ativa a etapa 2
+      // Marca a etapa 1 como concluída
       setCompletedTabs(prev => prev.includes(1) ? prev : [...prev, 1]);
-      setActiveTab(2);
 
       // Limpa o state para não adicionar a mensagem novamente
       navigate(location.pathname, { replace: true, state: {} });
@@ -230,8 +229,6 @@ export default function ChatPage() {
   };
 
   const handleStepChange = (step: number) => {
-    // Muda para o tab correspondente
-    setActiveTab(step);
     // Abre o bottom sheet ao clicar em qualquer step
     setIsStepsSheetOpen(true);
   };
