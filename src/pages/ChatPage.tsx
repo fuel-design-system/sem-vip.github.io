@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import '../styles/ChatPage.scss';
 import freightsData from '../data/freights.json';
 import NegotiationStepsSheet from '../components/NegotiationStepsSheet';
@@ -31,6 +31,7 @@ const contacts: { [key: string]: Contact } = {
 
 export default function ChatPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { freightId, contactId } = useParams();
 
   // Chave única para cada conversa
@@ -99,10 +100,6 @@ export default function ChatPage() {
     ];
   });
 
-  // Salva mensagens no sessionStorage sempre que mudam
-  useEffect(() => {
-    sessionStorage.setItem(chatStorageKey, JSON.stringify(messages));
-  }, [messages, chatStorageKey]);
 
   // Script de conversa com etapas definidas
   const conversationFlowSteps = [
