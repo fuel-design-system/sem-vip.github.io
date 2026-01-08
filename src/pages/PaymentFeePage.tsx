@@ -39,7 +39,9 @@ export default function PaymentFeePage() {
   const handleVIPWarningConfirm = () => {
     // Fecha o sheet e navega para o chat com indicação de documentos enviados
     setIsVIPWarningSheetOpen(false);
-    navigate(`/freight/${freightId}/chat/${contactId}`, { state: { documentsSubmitted: true } });
+    navigate(`/freight/${freightId}/chat/${contactId}`, {
+      state: { documentsSubmitted: true, skipTransition: true }
+    });
   };
 
   return (

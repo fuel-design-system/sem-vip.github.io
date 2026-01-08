@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 40px;
-    padding: 0 $space-4;
+    padding: 0 $space-4 140px;
     overflow-y: auto;
 
     .success-icon {
@@ -173,6 +173,10 @@
   }
 
   .success-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-top: 1px solid $border-weak;
     background: $bg-default;
     padding: 24px $space-4;
@@ -214,5 +218,11 @@
   .payment-success-page {
     max-width: 768px;
     margin: 0 auto;
+
+    .success-footer {
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 768px;
+    }
   }
 }
