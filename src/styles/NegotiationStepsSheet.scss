@@ -325,15 +325,16 @@
         background: #F4F4F5;
         position: absolute;
         left: 19px;
-        top: 52px;
       }
 
       &:first-child .step-connector {
         height: 54px;
+        top: 52px;
       }
 
       &:nth-child(2) .step-connector {
         height: 104px;
+        top: 52px;
       }
 
       &:last-child .step-connector {
