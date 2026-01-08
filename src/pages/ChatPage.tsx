@@ -663,6 +663,28 @@ export default function ChatPage() {
       {/* Bottom Tabs and Input */}
       <div className="chat-bottom">
         {!isInputFocused ? (
+          // Check if trip is confirmed to show success bar
+          messages.some(msg => msg.type === 'trip-confirmed') ? (
+            <div className="success-bar">
+              <div className="success-content">
+                <div className="success-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#0C884C"/>
+                    <path d="M10.3667 16.0084L6.56665 12.2084L7.51665 11.2584L10.3667 14.1084L16.4833 7.9917L17.4333 8.9417L10.3667 16.0084Z" fill="white"/>
+                  </svg>
+                </div>
+                <div className="success-details">
+                  <div className="success-title">Negociação concluída!</div>
+                  <div className="success-subtitle">
+                    Faça a coleta e receba o pagamento no Pix da sua <span className="success-bold">Carteira Fretebras</span>.
+                  </div>
+                </div>
+              </div>
+              <button className="details-button" onClick={() => setIsStepsSheetOpen(true)}>
+                Detalhes
+              </button>
+            </div>
+          ) : (
           <div className="chat-stepper">
             <button
               className={`step-item ${currentStep === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
@@ -744,6 +766,7 @@ export default function ChatPage() {
               }}
             ></div>
           </div>
+          )
         ) : (
           <div className="quick-replies">
             {quickReplies.map((reply, index) => (
