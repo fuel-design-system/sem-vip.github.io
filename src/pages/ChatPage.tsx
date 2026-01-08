@@ -553,11 +553,11 @@ export default function ChatPage() {
         {!isInputFocused ? (
           <div className="chat-stepper">
             <button
-              className={`step-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
               onClick={() => handleStepChange(1)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 1 && !completedTabs.includes(1) && (
+                {currentStep === 1 && !completedTabs.includes(1) && (
                   <div className="pulse"></div>
                 )}
                 <div className="step-badge">
@@ -573,11 +573,11 @@ export default function ChatPage() {
               <div className="step-label">Negociação</div>
             </button>
             <button
-              className={`step-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
               onClick={() => handleStepChange(2)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 2 && !completedTabs.includes(2) && (
+                {currentStep === 2 && !completedTabs.includes(2) && (
                   <>
                     <div className="pulse"></div>
                     <div className="clock-icon">
@@ -601,11 +601,11 @@ export default function ChatPage() {
               <div className="step-label">Documentos</div>
             </button>
             <button
-              className={`step-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
               onClick={() => handleStepChange(3)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 3 && !completedTabs.includes(3) && (
+                {currentStep === 3 && !completedTabs.includes(3) && (
                   <div className="pulse"></div>
                 )}
                 <div className="step-badge">
