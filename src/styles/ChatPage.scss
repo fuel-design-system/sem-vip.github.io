@@ -1421,9 +1421,12 @@
       .send-button {
         display: flex;
         width: 44px;
+        min-width: 44px;
+        max-width: 44px;
         height: 44px;
         justify-content: center;
         align-items: center;
+        flex-shrink: 0;
         border: none;
         background: #0769DA;
         border-radius: 458.333px;
