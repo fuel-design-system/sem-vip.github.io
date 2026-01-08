@@ -4,7 +4,7 @@
 
 O projeto está configurado para:
 ```
-https://fuel-design-system.github.io/transacional.github.io/
+https://fuel-design-system.github.io/sem-vip.github.io/
 ```
 
 ## 🚀 Como Fazer Deploy
