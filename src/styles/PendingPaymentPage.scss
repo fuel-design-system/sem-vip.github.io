@@ -280,11 +280,11 @@
           color: $text-inverted;
 
           &:hover {
-            background: darken($interaction-enable, 5%);
+            background: #0557B8;
           }
 
           &:active {
-            background: darken($interaction-enable, 10%);
+            background: #044899;
           }
         }
 
