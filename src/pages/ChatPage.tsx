@@ -458,7 +458,7 @@ export default function ChatPage() {
                       </div>
                     </div>
                   )}
-                  {msg.sender === 'contact' && msg.type !== 'document-request' && (
+                  {msg.sender === 'contact' && msg.type !== 'document-request' && msg.type !== 'document-submitted' && (
                     <div className="message-stack">
                       {isFirstContactMessage && (
                         <div className="message-header">
@@ -512,9 +512,6 @@ export default function ChatPage() {
                         Aguarde a análise dos documentos pela empresa.
                       </div>
                       <div className="document-footer">
-                        <div className="verified-badge">
-                          Verificado por Fretebras
-                        </div>
                         <span className="timestamp">{msg.timestamp}</span>
                       </div>
                     </div>
