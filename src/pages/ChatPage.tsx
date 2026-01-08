@@ -783,7 +783,7 @@ export default function ChatPage() {
       <NegotiationStepsSheet
         isOpen={isStepsSheetOpen}
         onClose={() => setIsStepsSheetOpen(false)}
-        currentStep={activeTab}
+        currentStep={currentStep}
       />
     </div>
   );
