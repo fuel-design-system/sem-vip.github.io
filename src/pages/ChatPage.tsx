@@ -171,6 +171,10 @@ export default function ChatPage() {
         };
 
         setMessages(prev => [...prev, agreementReviewMessage]);
+
+        // Marca a etapa 2 como concluída e ativa a etapa 3 (Fechamento)
+        setCompletedTabs(prev => prev.includes(2) ? prev : [...prev, 2]);
+        setCurrentStep(3);
       }, 3000);
 
       // Limpa o state para não adicionar a mensagem novamente
