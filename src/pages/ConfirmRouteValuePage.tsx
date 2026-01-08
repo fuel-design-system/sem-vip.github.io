@@ -5,16 +5,12 @@ import '../styles/ConfirmRouteValuePage.scss';
 export default function ConfirmRouteValuePage() {
   const navigate = useNavigate();
   const { freightId, contactId } = useParams();
-  const [isExiting, setIsExiting] = useState(false);
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [notAgreedYet, setNotAgreedYet] = useState(false);
 
   const handleBackClick = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(-1);
-    }, 300);
+    navigate(-1);
   };
 
   const handleContinue = () => {
@@ -50,7 +46,7 @@ export default function ConfirmRouteValuePage() {
   const hasValue = freightValue.trim() !== '';
 
   return (
-    <div className={`confirm-route-value-page ${isExiting ? 'exiting' : ''}`}>
+    <div className="confirm-route-value-page">
       {/* Top Bar */}
       <div className="top-bar">
         <button className="close-button" onClick={handleBackClick}>

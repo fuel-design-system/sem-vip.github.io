@@ -5,25 +5,18 @@ import '../styles/DocumentsPage.scss';
 export default function DocumentsPage() {
   const navigate = useNavigate();
   const { freightId, contactId } = useParams();
-  const [isExiting, setIsExiting] = useState(false);
   const [isMopChecked, setIsMopChecked] = useState(false);
 
   const handleBackClick = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(-1);
-    }, 300);
+    navigate(-1);
   };
 
   const handleContinue = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(`/freight/${freightId}/chat/${contactId}/confirm`);
-    }, 300);
+    navigate(`/freight/${freightId}/chat/${contactId}/confirm`);
   };
 
   return (
-    <div className={`documents-page ${isExiting ? 'exiting' : ''}`}>
+    <div className="documents-page">
       {/* Top Bar */}
       <div className="top-bar">
         <button className="close-button" onClick={handleBackClick}>
