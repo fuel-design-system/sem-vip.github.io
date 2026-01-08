@@ -363,6 +363,11 @@
       font-weight: 500;
       line-height: 160%;
       letter-spacing: 0.24px;
+
+      &.completed {
+        color: #000;
+        font-weight: 700;
+      }
     }
   }
 }
