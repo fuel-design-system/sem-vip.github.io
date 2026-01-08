@@ -52,6 +52,7 @@ export default function ChatPage() {
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasAddedDocumentMessage = useRef(false);
 
   // Salva estados importantes no sessionStorage
   useEffect(() => {
@@ -108,32 +109,29 @@ export default function ChatPage() {
   // Detecta quando documentos foram enviados e adiciona mensagem
   useEffect(() => {
     const state = location.state as { documentsSubmitted?: boolean };
-    if (state?.documentsSubmitted) {
-      // Verifica se já existe uma mensagem do tipo document-submitted
-      const hasDocumentMessage = messages.some(msg => msg.type === 'document-submitted');
+    if (state?.documentsSubmitted && !hasAddedDocumentMessage.current) {
+      hasAddedDocumentMessage.current = true;
 
-      if (!hasDocumentMessage) {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const timestamp = `${hours}:${minutes}`;
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timestamp = `${hours}:${minutes}`;
 
-        const documentSubmittedMessage: Message = {
-          id: String(Date.now()),
-          sender: 'user',
-          text: '',
-          timestamp,
-          isRead: true,
-          type: 'document-submitted',
-        };
+      const documentSubmittedMessage: Message = {
+        id: String(Date.now()),
+        sender: 'user',
+        text: '',
+        timestamp,
+        isRead: true,
+        type: 'document-submitted',
+      };
 
-        setMessages(prev => [...prev, documentSubmittedMessage]);
-      }
+      setMessages(prev => [...prev, documentSubmittedMessage]);
 
       // Limpa o state para não adicionar a mensagem novamente
       navigate(location.pathname, { replace: true, state: {} });
     }
-  }, [location.state, location.pathname, navigate, messages]);
+  }, [location.state, location.pathname, navigate]);
 
   // Script de conversa com etapas definidas
   const conversationFlowSteps = [
