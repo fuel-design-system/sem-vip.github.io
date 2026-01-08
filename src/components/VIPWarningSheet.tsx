@@ -80,6 +80,10 @@ export default function VIPWarningSheet({ isOpen, onClose, onConfirm, pixKey }: 
             </div>
           </div>
 
+        </div>
+
+        {/* Bottom Section */}
+        <div className="sheet-bottom">
           {/* Warning Box */}
           <div className="warning-box">
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
