@@ -7,15 +7,15 @@ export type NavigationDirection = 'forward' | 'backward' | 'none';
 function getRouteDepth(pathname: string): number {
   // Root
   if (pathname === '/' || pathname === '') return 0;
-  
+
   // Freight detail
   if (/^\/freight\/[^/]+$/.test(pathname)) return 1;
-  
+
   // Chat
   if (/^\/freight\/[^/]+\/chat\/[^/]+$/.test(pathname)) return 2;
-  
-  // Documents or Confirm
-  if (/^\/freight\/[^/]+\/chat\/[^/]+\/(documents|confirm)$/.test(pathname)) return 3;
+
+  // Documents, Confirm, or Payment Fee
+  if (/^\/freight\/[^/]+\/chat\/[^/]+\/(documents|confirm|payment-fee)$/.test(pathname)) return 3;
 
   return 0;
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/ConfirmRouteValuePage.scss';
+import freightsData from '../data/freights.json';
 
 export default function ConfirmRouteValuePage() {
   const navigate = useNavigate();
@@ -8,6 +9,9 @@ export default function ConfirmRouteValuePage() {
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [notAgreedYet, setNotAgreedYet] = useState(false);
+
+  // Get freight data
+  const freight = freightsData.find(f => f.id === Number(freightId));
 
   const handleBackClick = () => {
     navigate(-1);
@@ -77,8 +81,8 @@ export default function ConfirmRouteValuePage() {
                   </svg>
                 </div>
                 <div className="route-cities">
-                  <div className="city-origin">Uberlândia, MG</div>
-                  <div className="city-destination">Primavera do Leste, MT</div>
+                  <div className="city-origin">{freight?.origin || 'Origem não informada'}</div>
+                  <div className="city-destination">{freight?.destination || 'Destino não informado'}</div>
                 </div>
               </div>
             </div>
