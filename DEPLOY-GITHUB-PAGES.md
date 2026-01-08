@@ -77,7 +77,7 @@ Após criar este arquivo:
 
 ### 3. Verificar Deploy
 
-Acesse: `https://fuel-design-system.github.io/transacional.github.io/`
+Acesse: `https://fuel-design-system.github.io/sem-vip.github.io/`
 
 ✅ Deve carregar a página inicial  
 ✅ Navegação entre rotas deve funcionar  
@@ -89,7 +89,7 @@ Acesse: `https://fuel-design-system.github.io/transacional.github.io/`
 Se a tela ficar em branco após o deploy, acesse:
 
 ```
-https://fuel-design-system.github.io/transacional.github.io/force-reload.html
+https://fuel-design-system.github.io/sem-vip.github.io/force-reload.html
 ```
 
 Esta página vai:
@@ -105,7 +105,7 @@ O `base` DEVE estar configurado corretamente:
 
 ```typescript
 export default defineConfig({
-  base: '/transacional.github.io/',  // ⚠️ IMPORTANTE!
+  base: '/sem-vip.github.io/',  // ⚠️ IMPORTANTE!
   // ... resto da config
 });
 ```
@@ -114,12 +114,12 @@ export default defineConfig({
 
 ### Estrutura de URLs
 
-Com `base: '/transacional.github.io/'`, os arquivos são carregados de:
+Com `base: '/sem-vip.github.io/'`, os arquivos são carregados de:
 
-- HTML: `https://fuel-design-system.github.io/transacional.github.io/`
-- JS: `https://fuel-design-system.github.io/transacional.github.io/assets/index-ABC.js`
-- CSS: `https://fuel-design-system.github.io/transacional.github.io/assets/index-XYZ.css`
-- Images: `https://fuel-design-system.github.io/transacional.github.io/assets/image.png`
+- HTML: `https://fuel-design-system.github.io/sem-vip.github.io/`
+- JS: `https://fuel-design-system.github.io/sem-vip.github.io/assets/index-ABC.js`
+- CSS: `https://fuel-design-system.github.io/sem-vip.github.io/assets/index-XYZ.css`
+- Images: `https://fuel-design-system.github.io/sem-vip.github.io/assets/image.png`
 
 ## 🐛 Troubleshooting
 
@@ -136,7 +136,7 @@ Com `base: '/transacional.github.io/'`, os arquivos são carregados de:
 **Causa:** `base` configurado incorretamente no `vite.config.ts`
 
 **Solução:**
-1. Verifique se o `base` está como `'/transacional.github.io/'`
+1. Verifique se o `base` está como `'/sem-vip.github.io/'`
 2. Faça rebuild: `npm run build`
 3. Faça redeploy
 
@@ -155,13 +155,13 @@ npm run build
 npm run preview
 ```
 
-Isso vai servir a pasta `dist/` localmente em `http://localhost:4173/transacional.github.io/`
+Isso vai servir a pasta `dist/` localmente em `http://localhost:4173/sem-vip.github.io/`
 
 ## 📝 Checklist de Deploy
 
 Antes de fazer deploy, verifique:
 
-- [ ] `vite.config.ts` tem `base: '/transacional.github.io/'`
+- [ ] `vite.config.ts` tem `base: '/sem-vip.github.io/'`
 - [ ] Build local funciona: `npm run preview`
 - [ ] Sem erros no console
 - [ ] Todas as rotas funcionam localmente
@@ -180,12 +180,12 @@ Após o deploy:
 
 **Produção:**
 ```
-https://fuel-design-system.github.io/transacional.github.io/
+https://fuel-design-system.github.io/sem-vip.github.io/
 ```
 
 **Limpar Cache:**
 ```
-https://fuel-design-system.github.io/transacional.github.io/force-reload.html
+https://fuel-design-system.github.io/sem-vip.github.io/force-reload.html
 ```
 
 ## 📚 Mais Informações
