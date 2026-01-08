@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import '../styles/ChatPage.scss';
 import freightsData from '../data/freights.json';
 import NegotiationStepsSheet from '../components/NegotiationStepsSheet';
@@ -20,7 +20,7 @@ interface Message {
   text: string;
   timestamp: string;
   isRead?: boolean;
-  type?: 'text' | 'document-request';
+  type?: 'text' | 'document-request' | 'document-submitted' | 'agreement-review' | 'trip-confirmed';
 }
 
 const contacts: { [key: string]: Contact } = {
@@ -31,15 +31,25 @@ const contacts: { [key: string]: Contact } = {
 
 export default function ChatPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { freightId, contactId } = useParams();
 
   // Chave única para cada conversa
   const chatStorageKey = `chat_${freightId}_${contactId}`;
 
-  const [isExiting, setIsExiting] = useState(false);
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(() => {
+    const saved = sessionStorage.getItem(`${`chat_${freightId}_${contactId}`}_activeTab`);
+    return saved ? JSON.parse(saved) : 1;
+  });
+  const [currentStep, setCurrentStep] = useState(() => {
+    const saved = sessionStorage.getItem(`${`chat_${freightId}_${contactId}`}_currentStep`);
+    return saved ? JSON.parse(saved) : 1;
+  });
   const [message, setMessage] = useState('');
-  const [completedTabs, setCompletedTabs] = useState<number[]>([]);
+  const [completedTabs, setCompletedTabs] = useState<number[]>(() => {
+    const saved = sessionStorage.getItem(`${`chat_${freightId}_${contactId}`}_completedTabs`);
+    return saved ? JSON.parse(saved) : [];
+  });
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [hasAutoReplied, setHasAutoReplied] = useState(() => {
     const saved = sessionStorage.getItem(`${chatStorageKey}_autoReplied`);
@@ -52,6 +62,7 @@ export default function ChatPage() {
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasAddedDocumentMessage = useRef(false);
 
   // Salva estados importantes no sessionStorage
   useEffect(() => {
@@ -61,6 +72,18 @@ export default function ChatPage() {
   useEffect(() => {
     sessionStorage.setItem(`${chatStorageKey}_step`, JSON.stringify(conversationStep));
   }, [conversationStep, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_activeTab`, JSON.stringify(activeTab));
+  }, [activeTab, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_currentStep`, JSON.stringify(currentStep));
+  }, [currentStep, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_completedTabs`, JSON.stringify(completedTabs));
+  }, [completedTabs, chatStorageKey]);
 
   // Busca os dados do frete
   const freight = freightsData.find(f => f.id === Number(freightId));
@@ -104,6 +127,79 @@ export default function ChatPage() {
   useEffect(() => {
     sessionStorage.setItem(chatStorageKey, JSON.stringify(messages));
   }, [messages, chatStorageKey]);
+
+  // Detecta quando documentos foram enviados e adiciona mensagem
+  useEffect(() => {
+    const state = location.state as { documentsSubmitted?: boolean };
+    if (state?.documentsSubmitted && !hasAddedDocumentMessage.current) {
+      hasAddedDocumentMessage.current = true;
+
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const timestamp = `${hours}:${minutes}`;
+
+      const documentSubmittedMessage: Message = {
+        id: String(Date.now()),
+        sender: 'contact',
+        text: '',
+        timestamp,
+        isRead: true,
+        type: 'document-submitted',
+      };
+
+      setMessages(prev => [...prev, documentSubmittedMessage]);
+
+      // Marca a etapa 1 como concluída e ativa a etapa 2
+      setCompletedTabs(prev => prev.includes(1) ? prev : [...prev, 1]);
+      setCurrentStep(2);
+
+      // Após 3 segundos, envia a mensagem de revisão do acordo
+      setTimeout(() => {
+        const now2 = new Date();
+        const hours2 = String(now2.getHours()).padStart(2, '0');
+        const minutes2 = String(now2.getMinutes()).padStart(2, '0');
+        const timestamp2 = `${hours2}:${minutes2}`;
+
+        const agreementReviewMessage: Message = {
+          id: String(Date.now()),
+          sender: 'user',
+          text: '',
+          timestamp: timestamp2,
+          isRead: true,
+          type: 'agreement-review',
+        };
+
+        setMessages(prev => [...prev, agreementReviewMessage]);
+
+        // Marca a etapa 2 como concluída e ativa a etapa 3 (Fechamento)
+        setCompletedTabs(prev => prev.includes(2) ? prev : [...prev, 2]);
+        setCurrentStep(3);
+
+        // Após mais 5 segundos, envia mensagem de confirmação de viagem
+        setTimeout(() => {
+          const now3 = new Date();
+          const hours3 = String(now3.getHours()).padStart(2, '0');
+          const minutes3 = String(now3.getMinutes()).padStart(2, '0');
+          const timestamp3 = `${hours3}:${minutes3}`;
+
+          const tripConfirmedMessage: Message = {
+            id: String(Date.now()),
+            sender: 'user',
+            text: '',
+            timestamp: timestamp3,
+            isRead: true,
+            type: 'trip-confirmed',
+          };
+
+          setMessages(prev => [...prev, tripConfirmedMessage]);
+        }, 5000);
+      }, 3000);
+
+      // Limpa o state para não adicionar a mensagem novamente
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state, location.pathname, navigate]);
 
   // Script de conversa com etapas definidas
   const conversationFlowSteps = [
@@ -180,10 +276,16 @@ export default function ChatPage() {
   const contact = contacts[contactId || '1'];
 
   const handleBackClick = () => {
-    setIsExiting(true);
-    setTimeout(() => {
+    // Se a negociação foi concluída, volta para a home
+    if (messages.some(msg => msg.type === 'trip-confirmed')) {
+      // Marca que a negociação foi concluída para mostrar o banner de taxa pendente
+      sessionStorage.setItem('negotiationCompleted', 'true');
+      // Armazena o ID do frete negociado
+      sessionStorage.setItem('negotiatedFreightId', freightId || '');
+      navigate('/');
+    } else {
       navigate(`/freight/${freightId}`);
-    }, 300);
+    }
   };
 
   const handleStepChange = (step: number) => {
@@ -300,7 +402,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className={`chat-page ${isExiting ? 'exiting' : ''}`}>
+    <div className="chat-page">
       {/* Header */}
       <div className="chat-header">
         <div className="header-bar">
@@ -407,7 +509,7 @@ export default function ChatPage() {
                       </div>
                     </div>
                   )}
-                  {msg.sender === 'contact' && msg.type !== 'document-request' && (
+                  {msg.sender === 'contact' && msg.type !== 'document-request' && msg.type !== 'document-submitted' && (
                     <div className="message-stack">
                       {isFirstContactMessage && (
                         <div className="message-header">
@@ -445,10 +547,103 @@ export default function ChatPage() {
                       </div>
                     </div>
                   )}
-                  {msg.sender === 'user' && (
+                  {msg.sender === 'contact' && msg.type === 'document-submitted' && (
+                    <div className="document-submitted-message">
+                      <div className="document-images">
+                        <div className="image-grid">
+                          <div className="doc-image"></div>
+                          <div className="doc-image"></div>
+                          <div className="doc-image"></div>
+                          <div className="doc-badge">+2</div>
+                        </div>
+                      </div>
+                      <div className="document-caption">
+                        <span className="caption-bold">Você enviou os documentos para formalizar a negociação!</span>
+                        <br />
+                        Aguarde a análise dos documentos pela empresa.
+                      </div>
+                      <div className="document-footer">
+                        <span className="timestamp">{msg.timestamp}</span>
+                      </div>
+                    </div>
+                  )}
+                  {msg.sender === 'user' && msg.type !== 'agreement-review' && msg.type !== 'trip-confirmed' && (
                     <div className="user-message">
                       <div className="user-message-text">{msg.text}</div>
                       <div className="user-message-footer">
+                        <span className="timestamp">{msg.timestamp}</span>
+                      </div>
+                    </div>
+                  )}
+                  {msg.sender === 'user' && msg.type === 'agreement-review' && (
+                    <div className="agreement-review-message">
+                      <div className="agreement-card">
+                        <div className="agreement-icon-wrapper">
+                          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.08006 34.4003C8.0878 34.4003 7.24486 34.0535 6.55126 33.3599C5.85766 32.6663 5.51086 31.8257 5.51086 30.8383V26.6927H10.5141V4.30786L12.7245 6.21586L14.9657 4.30786L17.2069 6.21586L19.4481 4.30786L21.6893 6.21586L23.9353 4.30786L26.1817 6.21586L28.4277 4.30786L30.6737 6.21586L32.8893 4.30786V30.8311C32.8893 31.8233 32.5425 32.6663 31.8489 33.3599C31.1553 34.0535 30.3123 34.4003 29.3201 34.4003H9.08006ZM29.2833 32.5847C29.7774 32.5847 30.1845 32.4219 30.5045 32.0963C30.8245 31.7707 30.9845 31.3469 30.9845 30.8251V6.94506H12.4185V28.1543H27.6953V30.8311C27.6953 31.3439 27.8363 31.7644 28.1185 32.0927C28.4006 32.4207 28.7889 32.5847 29.2833 32.5847ZM14.7077 12.7663V10.9511H23.7845V12.7663H14.7077ZM14.7077 17.9879V16.1727H23.7845V17.9879H14.7077ZM27.4893 12.9819C27.1898 12.9819 26.9278 12.8696 26.7033 12.6451C26.4785 12.4203 26.3661 12.1581 26.3661 11.8587C26.3661 11.5592 26.4785 11.2972 26.7033 11.0727C26.9278 10.8481 27.1898 10.7359 27.4893 10.7359C27.7887 10.7359 28.0507 10.8481 28.2753 11.0727C28.5001 11.2972 28.6125 11.5592 28.6125 11.8587C28.6125 12.1581 28.5001 12.4203 28.2753 12.6451C28.0507 12.8696 27.7887 12.9819 27.4893 12.9819ZM27.4893 18.0495C27.1898 18.0495 26.9278 17.9372 26.7033 17.7127C26.4785 17.4881 26.3661 17.226 26.3661 16.9263C26.3661 16.6268 26.4785 16.3648 26.7033 16.1403C26.9278 15.9157 27.1898 15.8035 27.4893 15.8035C27.7887 15.8035 28.0507 15.9157 28.2753 16.1403C28.5001 16.3648 28.6125 16.6268 28.6125 16.9263C28.6125 17.226 28.5001 17.4881 28.2753 17.7127C28.0507 17.9372 27.7887 18.0495 27.4893 18.0495Z" fill="#0769DA"/>
+                          </svg>
+                          <div className="agreement-check">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M14.1 3.55776L5.17302 12.4848L0.300049 7.61181L1.93789 5.97398L5.17302 9.20911L12.4622 1.91992L14.1 3.55776Z" fill="white"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="agreement-caption">
+                        <div className="agreement-text">
+                          <span className="agreement-name">Carlos S. revisou</span> o acordo de frete e esta analisando os documentos
+                        </div>
+                        <div className="agreement-reminder">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clipPath="url(#clip0_2335_58083)">
+                              <path d="M9.99998 0.833252C8.18699 0.833252 6.41471 1.37087 4.90726 2.37811C3.39981 3.38536 2.22489 4.817 1.53109 6.49199C0.837285 8.16698 0.655754 10.0101 1.00945 11.7882C1.36315 13.5664 2.23619 15.1997 3.51817 16.4817C4.80015 17.7637 6.4335 18.6367 8.21165 18.9904C9.98981 19.3441 11.8329 19.1626 13.5079 18.4688C15.1829 17.775 16.6145 16.6001 17.6218 15.0926C18.629 13.5852 19.1666 11.8129 19.1666 9.99992C19.1666 7.56877 18.2009 5.23719 16.4818 3.51811C14.7627 1.79902 12.4311 0.833252 9.99998 0.833252V0.833252ZM10.191 4.6527C10.4176 4.6527 10.6391 4.7199 10.8275 4.8458C11.016 4.97171 11.1628 5.15066 11.2496 5.36004C11.3363 5.56941 11.359 5.7998 11.3148 6.02207C11.2706 6.24434 11.1614 6.44851 11.0012 6.60876C10.8409 6.769 10.6368 6.87813 10.4145 6.92235C10.1922 6.96656 9.96184 6.94387 9.75246 6.85714C9.54309 6.77042 9.36413 6.62355 9.23823 6.43512C9.11232 6.24669 9.04512 6.02515 9.04512 5.79853C9.04512 5.49464 9.16584 5.20319 9.38073 4.9883C9.59561 4.77342 9.88706 4.6527 10.191 4.6527ZM11.9097 14.9652H8.85415C8.65155 14.9652 8.45725 14.8847 8.314 14.7415C8.17074 14.5982 8.09026 14.4039 8.09026 14.2013C8.09026 13.9987 8.17074 13.8044 8.314 13.6612C8.45725 13.5179 8.65155 13.4374 8.85415 13.4374H9.42707C9.47771 13.4374 9.52629 13.4173 9.5621 13.3815C9.59792 13.3457 9.61804 13.2971 9.61804 13.2464V9.80894C9.61804 9.7583 9.59792 9.70972 9.5621 9.67391C9.52629 9.63809 9.47771 9.61797 9.42707 9.61797H8.85415C8.65155 9.61797 8.45725 9.53749 8.314 9.39423C8.17074 9.25098 8.09026 9.05668 8.09026 8.85408C8.09026 8.65149 8.17074 8.45719 8.314 8.31393C8.45725 8.17068 8.65155 8.0902 8.85415 8.0902H9.61804C10.0232 8.0902 10.4118 8.25116 10.6983 8.53767C10.9849 8.82419 11.1458 9.21278 11.1458 9.61797V13.2464C11.1458 13.2971 11.1659 13.3457 11.2017 13.3815C11.2376 13.4173 11.2861 13.4374 11.3368 13.4374H11.9097C12.1123 13.4374 12.3066 13.5179 12.4499 13.6612C12.5931 13.8044 12.6736 13.9987 12.6736 14.2013C12.6736 14.4039 12.5931 14.5982 12.4499 14.7415C12.3066 14.8847 12.1123 14.9652 11.9097 14.9652Z" fill="#636B7E"/>
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_2335_58083">
+                                <rect width="20" height="20" fill="white"/>
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span className="reminder-text">Lembre-se! Se fizer a coleta, a empresa terá que pagar o adiantamento na sua Carteira Fretebras para desconto da Taxa de serviço.</span>
+                        </div>
+                      </div>
+                      <div className="agreement-action">
+                        <button className="agreement-button">Ver acordo</button>
+                      </div>
+                      <div className="agreement-footer">
+                        <span className="timestamp">{msg.timestamp}</span>
+                      </div>
+                    </div>
+                  )}
+                  {msg.sender === 'user' && msg.type === 'trip-confirmed' && (
+                    <div className="trip-confirmed-message">
+                      <div className="trip-card">
+                        <div className="trip-map-wrapper">
+                          <img src="https://api.builder.io/api/v1/image/assets/TEMP/585043fe1e5b9f44ad6ec936da40202e66728234?width=783" alt="Mapa da rota" className="trip-map-bg" />
+                        </div>
+                        <div className="trip-icon-wrapper">
+                          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.1418 32.278L16.9202 21.4504L6.09257 17.198L6.06177 15.9552L32.3386 6.03198L22.3846 32.278H21.1418Z" fill="white"/>
+                          </svg>
+                          <div className="trip-check">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M14.1 3.55776L5.17302 12.4848L0.300049 7.61181L1.93789 5.97398L5.17302 9.20911L12.4622 1.91992L14.1 3.55776Z" fill="white"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="trip-caption">
+                        <div className="trip-title">Carlos S. confirmou a viagem!</div>
+                        <div className="trip-route">📍 {freight ? `${freight.origin.split(',')[1]?.trim() || 'SP'} → ${freight.destination.split(',')[1]?.trim() || 'MG'} | ${freight.product}` : 'SP → MG | Pallets • Caixas'}</div>
+                        <div className="trip-text">
+                          Combine a coleta e receba o adiantamento no <span className="trip-bold">Pix da sua Carteira Fretebras.</span>
+                        </div>
+                      </div>
+                      <div className="trip-actions">
+                        <button className="trip-button primary">Já coletei o frete</button>
+                        <button className="trip-button secondary">Enviar meu Pix</button>
+                      </div>
+                      <div className="trip-footer">
                         <span className="timestamp">{msg.timestamp}</span>
                       </div>
                     </div>
@@ -477,13 +672,35 @@ export default function ChatPage() {
       {/* Bottom Tabs and Input */}
       <div className="chat-bottom">
         {!isInputFocused ? (
+          // Check if trip is confirmed to show success bar
+          messages.some(msg => msg.type === 'trip-confirmed') ? (
+            <div className="success-bar">
+              <div className="success-content">
+                <div className="success-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="#0C884C"/>
+                    <path d="M10.3667 16.0084L6.56665 12.2084L7.51665 11.2584L10.3667 14.1084L16.4833 7.9917L17.4333 8.9417L10.3667 16.0084Z" fill="white"/>
+                  </svg>
+                </div>
+                <div className="success-details">
+                  <div className="success-title">Negociação concluída!</div>
+                  <div className="success-subtitle">
+                    Faça a coleta e receba o pagamento no Pix da sua <span className="success-bold">Carteira Fretebras</span>.
+                  </div>
+                </div>
+              </div>
+              <button className="details-button" onClick={() => setIsStepsSheetOpen(true)}>
+                Detalhes
+              </button>
+            </div>
+          ) : (
           <div className="chat-stepper">
             <button
-              className={`step-item ${activeTab === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 1 ? 'active' : ''} ${completedTabs.includes(1) ? 'completed' : ''}`}
               onClick={() => handleStepChange(1)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 1 && !completedTabs.includes(1) && (
+                {currentStep === 1 && !completedTabs.includes(1) && (
                   <div className="pulse"></div>
                 )}
                 <div className="step-badge">
@@ -499,12 +716,20 @@ export default function ChatPage() {
               <div className="step-label">Negociação</div>
             </button>
             <button
-              className={`step-item ${activeTab === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 2 ? 'active' : ''} ${completedTabs.includes(2) ? 'completed' : ''}`}
               onClick={() => handleStepChange(2)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 2 && !completedTabs.includes(2) && (
-                  <div className="pulse"></div>
+                {currentStep === 2 && !completedTabs.includes(2) && (
+                  <>
+                    <div className="pulse"></div>
+                    <div className="clock-icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="16" height="16" rx="8" fill="white"/>
+                        <path d="M8.00684 1.94507C8.843 1.94508 9.62917 2.10378 10.3652 2.42163C11.1014 2.7395 11.7417 3.17085 12.2861 3.71558C12.8307 4.2605 13.2624 4.90159 13.5801 5.63843C13.8977 6.37505 14.0566 7.16214 14.0566 7.99976C14.0566 8.834 13.8991 9.61826 13.584 10.3523C13.2688 11.0863 12.8376 11.7296 12.291 12.282C11.7443 12.8344 11.1016 13.2692 10.3643 13.5847C9.6272 13.8999 8.83911 14.0574 8.00098 14.0574C7.16683 14.0573 6.38239 13.8999 5.64844 13.5847C4.9144 13.2695 4.27117 12.8352 3.71875 12.283C3.16635 11.7307 2.73245 11.0867 2.41699 10.3513C2.10179 9.61629 1.94438 8.83086 1.94434 7.99487C1.94434 7.15876 2.10187 6.37249 2.41699 5.63647C2.7322 4.90036 3.16568 4.25852 3.71777 3.71167C4.26998 3.16479 4.91401 2.73322 5.64941 2.41772C6.38461 2.10242 7.17063 1.94507 8.00684 1.94507ZM7.55664 7.93726H7.55176L7.55957 7.94409L10.3418 10.7263L10.3486 10.7341L10.9834 10.0994L10.9756 10.0925L8.44434 7.5603V3.99097H7.55664V7.93726Z" fill="#0769DA" stroke="#0769DA" strokeWidth="0.0208333"/>
+                      </svg>
+                    </div>
+                  </>
                 )}
                 <div className="step-badge">
                   {completedTabs.includes(2) ? (
@@ -519,11 +744,11 @@ export default function ChatPage() {
               <div className="step-label">Documentos</div>
             </button>
             <button
-              className={`step-item ${activeTab === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
+              className={`step-item ${currentStep === 3 ? 'active' : ''} ${completedTabs.includes(3) ? 'completed' : ''}`}
               onClick={() => handleStepChange(3)}
             >
               <div className="step-badge-wrapper">
-                {activeTab === 3 && !completedTabs.includes(3) && (
+                {currentStep === 3 && !completedTabs.includes(3) && (
                   <div className="pulse"></div>
                 )}
                 <div className="step-badge">
@@ -544,12 +769,13 @@ export default function ChatPage() {
               style={{
                 width:
                   completedTabs.includes(3) ? '100%' :
-                  activeTab === 3 || completedTabs.includes(2) ? '83%' :
-                  activeTab === 2 || completedTabs.includes(1) ? '50%' :
+                  currentStep === 3 || completedTabs.includes(2) ? '83%' :
+                  currentStep === 2 || completedTabs.includes(1) ? '50%' :
                   '16%'
               }}
             ></div>
           </div>
+          )
         ) : (
           <div className="quick-replies">
             {quickReplies.map((reply, index) => (
@@ -641,7 +867,7 @@ export default function ChatPage() {
       <NegotiationStepsSheet
         isOpen={isStepsSheetOpen}
         onClose={() => setIsStepsSheetOpen(false)}
-        currentStep={activeTab}
+        currentStep={currentStep}
       />
     </div>
   );

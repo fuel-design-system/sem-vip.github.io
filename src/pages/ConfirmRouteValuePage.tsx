@@ -1,25 +1,38 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/ConfirmRouteValuePage.scss';
+import freightsData from '../data/freights.json';
 
 export default function ConfirmRouteValuePage() {
   const navigate = useNavigate();
   const { freightId, contactId } = useParams();
-  const [isExiting, setIsExiting] = useState(false);
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [notAgreedYet, setNotAgreedYet] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  // Get freight data
+  const freight = freightsData.find(f => f.id === Number(freightId));
 
   const handleBackClick = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(-1);
-    }, 300);
+    navigate(-1);
   };
 
   const handleContinue = () => {
-    // TODO: Implementar ação de continuar
-    console.log('Continuar clicado', { freightValue, notAgreedYet });
+    // Se o checkbox estiver marcado, permite continuar sem valor
+    if (notAgreedYet) {
+      navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
+      return;
+    }
+
+    // Se não tem valor preenchido, mostra erro
+    if (!hasValue) {
+      setHasError(true);
+      return;
+    }
+
+    // Se tem valor, navega para a página de formas de cobrança da taxa
+    navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
   };
 
   // Currency mask function
@@ -45,12 +58,16 @@ export default function ConfirmRouteValuePage() {
     const inputValue = e.target.value;
     const formattedValue = formatCurrency(inputValue);
     setFreightValue(formattedValue);
+    // Limpa o erro quando o usuário começa a digitar
+    if (hasError) {
+      setHasError(false);
+    }
   };
 
   const hasValue = freightValue.trim() !== '';
 
   return (
-    <div className={`confirm-route-value-page ${isExiting ? 'exiting' : ''}`}>
+    <div className="confirm-route-value-page">
       {/* Top Bar */}
       <div className="top-bar">
         <button className="close-button" onClick={handleBackClick}>
@@ -81,8 +98,8 @@ export default function ConfirmRouteValuePage() {
                   </svg>
                 </div>
                 <div className="route-cities">
-                  <div className="city-origin">Uberlândia, MG</div>
-                  <div className="city-destination">Primavera do Leste, MT</div>
+                  <div className="city-origin">{freight?.origin || 'Origem não informada'}</div>
+                  <div className="city-destination">{freight?.destination || 'Destino não informado'}</div>
                 </div>
               </div>
             </div>
@@ -91,7 +108,7 @@ export default function ConfirmRouteValuePage() {
 
             {/* Value Input */}
             <div className="value-section">
-              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''}`}>
+              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''} ${hasError ? 'error' : ''}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -106,13 +123,24 @@ export default function ConfirmRouteValuePage() {
                   Qual o valor do frete combinado?
                 </label>
               </div>
+              {hasError && (
+                <span className="error-message">
+                  Informe o valor do frete ou marque a opção abaixo caso ainda não tenha combinado
+                </span>
+              )}
             </div>
 
             {/* Checkbox */}
             <div className="checkbox-section">
-              <button 
+              <button
                 className={`checkbox ${notAgreedYet ? 'checked' : ''}`}
-                onClick={() => setNotAgreedYet(!notAgreedYet)}
+                onClick={() => {
+                  setNotAgreedYet(!notAgreedYet);
+                  // Limpa o erro quando marca/desmarca o checkbox
+                  if (hasError) {
+                    setHasError(false);
+                  }
+                }}
               >
                 <div className="checkbox-box">
                   {notAgreedYet && (
