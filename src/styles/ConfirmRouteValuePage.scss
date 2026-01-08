@@ -162,6 +162,16 @@
           padding-top: 14px;
         }
       }
+
+      &.error {
+        border: 2px solid #E53935;
+        background: rgba(0, 43, 92, 0.06);
+        padding: 0 15px; // Adjust for thicker border
+
+        &.focused {
+          border: 2px solid #E53935;
+        }
+      }
     }
 
     .floating-label {
