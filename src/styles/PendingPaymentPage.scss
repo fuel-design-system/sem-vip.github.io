@@ -8,7 +8,7 @@
   .page-content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
     padding: $space-4;
 
     .page-title {
@@ -31,7 +31,7 @@
         display: flex;
         flex-direction: column;
         gap: 24px;
-        padding: $space-4;
+        padding: 32px 16px 16px;
 
         .fee-header {
           display: flex;
@@ -297,6 +297,7 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+      margin: 48px 0;
 
       .help-item {
         display: flex;
