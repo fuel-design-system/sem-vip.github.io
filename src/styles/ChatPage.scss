@@ -514,6 +514,185 @@
               }
             }
           }
+
+          .trip-confirmed-message {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 298px;
+            min-width: 256px;
+            width: fit-content;
+            background: #FFF;
+            padding: 8px;
+            border-radius: 12px 12px 12px 2px;
+            animation: messageSlideUp 0.3s ease-out;
+
+            .trip-card {
+              position: relative;
+              width: 100%;
+              height: 176px;
+              border-radius: 8px;
+              overflow: hidden;
+              background: #1A1A1A;
+              margin-bottom: 12px;
+
+              .trip-map-wrapper {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+
+                .trip-map-bg {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  opacity: 0.7;
+                }
+              }
+
+              .trip-icon-wrapper {
+                position: absolute;
+                bottom: 12px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                width: 64px;
+                height: 64px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 6.4px;
+                background: #1A1A1A;
+
+                svg {
+                  width: 38.4px;
+                  height: 38.4px;
+                }
+
+                .trip-check {
+                  display: flex;
+                  width: 24px;
+                  height: 24px;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 600px;
+                  background: #0C884C;
+                  position: absolute;
+                  right: -8px;
+                  bottom: -4px;
+
+                  svg {
+                    width: 14.4px;
+                    height: 14.4px;
+                  }
+                }
+              }
+            }
+
+            .trip-caption {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+              padding: 0 8px;
+              margin-bottom: 16px;
+
+              .trip-title {
+                color: #111;
+                font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 150%;
+              }
+
+              .trip-route {
+                color: #111;
+                font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 150%;
+              }
+
+              .trip-text {
+                color: #111;
+                font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 150%;
+
+                .trip-bold {
+                  font-weight: 700;
+                }
+              }
+            }
+
+            .trip-actions {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              padding: 0 8px;
+              margin-bottom: 8px;
+
+              .trip-button {
+                display: flex;
+                min-width: 64px;
+                min-height: 48px;
+                max-height: 48px;
+                padding: 0 16px;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                border-radius: 100px;
+                border: none;
+                cursor: pointer;
+                font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 150%;
+                transition: background 0.2s;
+
+                &.primary {
+                  background: #0769DA;
+                  color: #FFF;
+
+                  &:hover {
+                    background: #0557B8;
+                  }
+
+                  &:active {
+                    background: #044899;
+                  }
+                }
+
+                &.secondary {
+                  background: rgba(219, 236, 255, 0.12);
+                  color: #111;
+
+                  &:hover {
+                    background: rgba(219, 236, 255, 0.20);
+                  }
+
+                  &:active {
+                    background: rgba(219, 236, 255, 0.30);
+                  }
+                }
+              }
+            }
+
+            .trip-footer {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              padding: 0 8px 4px;
+
+              .timestamp {
+                color: #636B7E;
+                font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 160%;
+                letter-spacing: 0.24px;
+              }
+            }
+          }
         }
 
         &.contact {
