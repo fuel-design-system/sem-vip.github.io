@@ -10,6 +10,7 @@ import PaymentCheckoutPage from './pages/PaymentCheckoutPage';
 import PaymentLoadingPage from './pages/PaymentLoadingPage';
 import PaymentPixPage from './pages/PaymentPixPage';
 import PaymentSuccessPage from './pages/PaymentSuccessPage';
+import ContestServiceFeePage from './pages/ContestServiceFeePage';
 import PageTransition from './components/PageTransition';
 
 function AppRoutes() {
@@ -24,6 +25,7 @@ function AppRoutes() {
         <Route path="/payment/loading" element={<PaymentLoadingPage />} />
         <Route path="/payment/pix" element={<PaymentPixPage />} />
         <Route path="/payment/success" element={<PaymentSuccessPage />} />
+        <Route path="/contest-service-fee" element={<ContestServiceFeePage />} />
         <Route path="/freight/:id" element={<FreightDetail />} />
         <Route path="/freight/:freightId/chat/:contactId" element={<ChatPage />} />
         <Route path="/freight/:freightId/chat/:contactId/documents" element={<DocumentsPage />} />
