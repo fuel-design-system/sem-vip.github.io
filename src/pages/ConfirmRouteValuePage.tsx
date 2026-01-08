@@ -9,6 +9,7 @@ export default function ConfirmRouteValuePage() {
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [notAgreedYet, setNotAgreedYet] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   // Get freight data
   const freight = freightsData.find(f => f.id === Number(freightId));
@@ -18,7 +19,19 @@ export default function ConfirmRouteValuePage() {
   };
 
   const handleContinue = () => {
-    // Navega para a página de formas de cobrança da taxa
+    // Se o checkbox estiver marcado, permite continuar sem valor
+    if (notAgreedYet) {
+      navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
+      return;
+    }
+
+    // Se não tem valor preenchido, mostra erro
+    if (!hasValue) {
+      setHasError(true);
+      return;
+    }
+
+    // Se tem valor, navega para a página de formas de cobrança da taxa
     navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
   };
 
@@ -45,6 +58,10 @@ export default function ConfirmRouteValuePage() {
     const inputValue = e.target.value;
     const formattedValue = formatCurrency(inputValue);
     setFreightValue(formattedValue);
+    // Limpa o erro quando o usuário começa a digitar
+    if (hasError) {
+      setHasError(false);
+    }
   };
 
   const hasValue = freightValue.trim() !== '';
@@ -91,7 +108,7 @@ export default function ConfirmRouteValuePage() {
 
             {/* Value Input */}
             <div className="value-section">
-              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''}`}>
+              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''} ${hasError ? 'error' : ''}`}>
                 <input
                   type="text"
                   inputMode="numeric"
