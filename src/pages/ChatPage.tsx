@@ -133,7 +133,7 @@ export default function ChatPage() {
 
       const documentSubmittedMessage: Message = {
         id: String(Date.now()),
-        sender: 'user',
+        sender: 'contact',
         text: '',
         timestamp,
         isRead: true,
