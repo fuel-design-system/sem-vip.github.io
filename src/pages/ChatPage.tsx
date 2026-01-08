@@ -278,6 +278,8 @@ export default function ChatPage() {
   const handleBackClick = () => {
     // Se a negociação foi concluída, volta para a home
     if (messages.some(msg => msg.type === 'trip-confirmed')) {
+      // Marca que a negociação foi concluída para mostrar o banner de taxa pendente
+      sessionStorage.setItem('negotiationCompleted', 'true');
       navigate('/');
     } else {
       navigate(`/freight/${freightId}`);
