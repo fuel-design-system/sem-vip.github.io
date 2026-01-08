@@ -123,6 +123,11 @@ export default function ConfirmRouteValuePage() {
                   Qual o valor do frete combinado?
                 </label>
               </div>
+              {hasError && (
+                <span className="error-message">
+                  Informe o valor do frete ou marque a opção abaixo caso ainda não tenha combinado
+                </span>
+              )}
             </div>
 
             {/* Checkbox */}
