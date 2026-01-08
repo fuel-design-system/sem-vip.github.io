@@ -20,7 +20,7 @@ interface Message {
   text: string;
   timestamp: string;
   isRead?: boolean;
-  type?: 'text' | 'document-request';
+  type?: 'text' | 'document-request' | 'document-submitted';
 }
 
 const contacts: { [key: string]: Contact } = {
