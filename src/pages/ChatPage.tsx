@@ -276,7 +276,12 @@ export default function ChatPage() {
   const contact = contacts[contactId || '1'];
 
   const handleBackClick = () => {
-    navigate(`/freight/${freightId}`);
+    // Se a negociação foi concluída, volta para a home
+    if (messages.some(msg => msg.type === 'trip-confirmed')) {
+      navigate('/');
+    } else {
+      navigate(`/freight/${freightId}`);
+    }
   };
 
   const handleStepChange = (step: number) => {
