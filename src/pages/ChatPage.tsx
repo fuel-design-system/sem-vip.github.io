@@ -558,7 +558,7 @@ export default function ChatPage() {
                       </div>
                     </div>
                   )}
-                  {msg.sender === 'user' && msg.type !== 'agreement-review' && (
+                  {msg.sender === 'user' && msg.type !== 'agreement-review' && msg.type !== 'trip-confirmed' && (
                     <div className="user-message">
                       <div className="user-message-text">{msg.text}</div>
                       <div className="user-message-footer">
@@ -602,6 +602,39 @@ export default function ChatPage() {
                         <button className="agreement-button">Ver acordo</button>
                       </div>
                       <div className="agreement-footer">
+                        <span className="timestamp">{msg.timestamp}</span>
+                      </div>
+                    </div>
+                  )}
+                  {msg.sender === 'user' && msg.type === 'trip-confirmed' && (
+                    <div className="trip-confirmed-message">
+                      <div className="trip-card">
+                        <div className="trip-map-wrapper">
+                          <img src="https://api.builder.io/api/v1/image/assets/TEMP/585043fe1e5b9f44ad6ec936da40202e66728234?width=783" alt="Mapa da rota" className="trip-map-bg" />
+                        </div>
+                        <div className="trip-icon-wrapper">
+                          <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.1418 32.278L16.9202 21.4504L6.09257 17.198L6.06177 15.9552L32.3386 6.03198L22.3846 32.278H21.1418Z" fill="white"/>
+                          </svg>
+                          <div className="trip-check">
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M14.1 3.55776L5.17302 12.4848L0.300049 7.61181L1.93789 5.97398L5.17302 9.20911L12.4622 1.91992L14.1 3.55776Z" fill="white"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="trip-caption">
+                        <div className="trip-title">Carlos S. confirmou a viagem!</div>
+                        <div className="trip-route">📍 {freight ? `${freight.origin.split(',')[1]?.trim() || 'SP'} → ${freight.destination.split(',')[1]?.trim() || 'MG'} | ${freight.product}` : 'SP → MG | Pallets • Caixas'}</div>
+                        <div className="trip-text">
+                          Combine a coleta e receba o adiantamento no <span className="trip-bold">Pix da sua Carteira Fretebras.</span>
+                        </div>
+                      </div>
+                      <div className="trip-actions">
+                        <button className="trip-button primary">Já coletei o frete</button>
+                        <button className="trip-button secondary">Enviar meu Pix</button>
+                      </div>
+                      <div className="trip-footer">
                         <span className="timestamp">{msg.timestamp}</span>
                       </div>
                     </div>
