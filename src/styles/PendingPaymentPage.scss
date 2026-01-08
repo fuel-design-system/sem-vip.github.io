@@ -134,6 +134,7 @@
       .route-section {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: $space-3;
 
         .route-label {
