@@ -37,9 +37,15 @@ export default function ChatPage() {
   // Chave única para cada conversa
   const chatStorageKey = `chat_${freightId}_${contactId}`;
 
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(() => {
+    const saved = sessionStorage.getItem(`${`chat_${freightId}_${contactId}`}_activeTab`);
+    return saved ? JSON.parse(saved) : 1;
+  });
   const [message, setMessage] = useState('');
-  const [completedTabs, setCompletedTabs] = useState<number[]>([]);
+  const [completedTabs, setCompletedTabs] = useState<number[]>(() => {
+    const saved = sessionStorage.getItem(`${`chat_${freightId}_${contactId}`}_completedTabs`);
+    return saved ? JSON.parse(saved) : [];
+  });
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [hasAutoReplied, setHasAutoReplied] = useState(() => {
     const saved = sessionStorage.getItem(`${chatStorageKey}_autoReplied`);
@@ -62,6 +68,14 @@ export default function ChatPage() {
   useEffect(() => {
     sessionStorage.setItem(`${chatStorageKey}_step`, JSON.stringify(conversationStep));
   }, [conversationStep, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_activeTab`, JSON.stringify(activeTab));
+  }, [activeTab, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_completedTabs`, JSON.stringify(completedTabs));
+  }, [completedTabs, chatStorageKey]);
 
   // Busca os dados do frete
   const freight = freightsData.find(f => f.id === Number(freightId));
@@ -127,6 +141,10 @@ export default function ChatPage() {
       };
 
       setMessages(prev => [...prev, documentSubmittedMessage]);
+
+      // Marca a etapa 1 como concluída e ativa a etapa 2
+      setCompletedTabs(prev => prev.includes(1) ? prev : [...prev, 1]);
+      setActiveTab(2);
 
       // Limpa o state para não adicionar a mensagem novamente
       navigate(location.pathname, { replace: true, state: {} });
@@ -552,7 +570,15 @@ export default function ChatPage() {
             >
               <div className="step-badge-wrapper">
                 {activeTab === 2 && !completedTabs.includes(2) && (
-                  <div className="pulse"></div>
+                  <>
+                    <div className="pulse"></div>
+                    <div className="clock-icon">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="16" height="16" rx="8" fill="white"/>
+                        <path d="M8.00684 1.94507C8.843 1.94508 9.62917 2.10378 10.3652 2.42163C11.1014 2.7395 11.7417 3.17085 12.2861 3.71558C12.8307 4.2605 13.2624 4.90159 13.5801 5.63843C13.8977 6.37505 14.0566 7.16214 14.0566 7.99976C14.0566 8.834 13.8991 9.61826 13.584 10.3523C13.2688 11.0863 12.8376 11.7296 12.291 12.282C11.7443 12.8344 11.1016 13.2692 10.3643 13.5847C9.6272 13.8999 8.83911 14.0574 8.00098 14.0574C7.16683 14.0573 6.38239 13.8999 5.64844 13.5847C4.9144 13.2695 4.27117 12.8352 3.71875 12.283C3.16635 11.7307 2.73245 11.0867 2.41699 10.3513C2.10179 9.61629 1.94438 8.83086 1.94434 7.99487C1.94434 7.15876 2.10187 6.37249 2.41699 5.63647C2.7322 4.90036 3.16568 4.25852 3.71777 3.71167C4.26998 3.16479 4.91401 2.73322 5.64941 2.41772C6.38461 2.10242 7.17063 1.94507 8.00684 1.94507ZM7.55664 7.93726H7.55176L7.55957 7.94409L10.3418 10.7263L10.3486 10.7341L10.9834 10.0994L10.9756 10.0925L8.44434 7.5603V3.99097H7.55664V7.93726Z" fill="#0769DA" stroke="#0769DA" strokeWidth="0.0208333"/>
+                      </svg>
+                    </div>
+                  </>
                 )}
                 <div className="step-badge">
                   {completedTabs.includes(2) ? (
