@@ -138,7 +138,9 @@ export default function NegotiationStepsSheet({ isOpen, onClose, currentStep }: 
               <path opacity="0.05" d="M10.5096 12L10.5096 24L0.0330103 18L10.5096 12Z" fill="#111111"/>
               <path d="M10.6076 6L15.857 9V15L10.6076 18L5.35823 15V9L10.6076 6Z" fill="#FFE5A0"/>
             </svg>
-            <div className="points-text">+55 pontos ao concluir todas as etapas.</div>
+            <div className={`points-text ${currentStep >= 3 ? 'completed' : ''}`}>
+              {currentStep >= 3 ? 'Você ganhou + 55 pontos. Parabéns!' : '+55 pontos ao concluir todas as etapas.'}
+            </div>
           </div>
         </div>
       </div>
