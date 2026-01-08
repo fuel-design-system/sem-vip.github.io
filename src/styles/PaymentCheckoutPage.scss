@@ -79,6 +79,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      background: #FFF;
+      padding: 24px $space-4;
+      border-radius: $radius-lg;
 
       .fee-label {
         color: $text-medium;
