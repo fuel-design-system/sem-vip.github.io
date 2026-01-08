@@ -228,5 +228,11 @@
   .payment-pix-page {
     max-width: 768px;
     margin: 0 auto;
+
+    .pix-footer {
+      max-width: 768px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
