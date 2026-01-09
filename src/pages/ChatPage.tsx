@@ -78,6 +78,10 @@ export default function ChatPage() {
   });
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
+  const [hasClickedDocumentButton, setHasClickedDocumentButton] = useState(() => {
+    const saved = sessionStorage.getItem(`${chatStorageKey}_clickedDocButton`);
+    return saved ? JSON.parse(saved) : false;
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAddedDocumentMessage = useRef(false);
 
