@@ -8,7 +8,7 @@ import VIPWarningSheet from '../components/VIPWarningSheet';
 export default function PaymentFeePage() {
   const navigate = useNavigate();
   const { freightId, contactId } = useParams();
-  const [pixKey] = useState('(11) 9 9999-8888');
+  const [pixKey] = useState('41226f99-2f4f-486d-b515-b0b223');
   const [showToast, setShowToast] = useState(false);
   const [isPixInfoSheetOpen, setIsPixInfoSheetOpen] = useState(false);
   const [isVIPWarningSheetOpen, setIsVIPWarningSheetOpen] = useState(false);
