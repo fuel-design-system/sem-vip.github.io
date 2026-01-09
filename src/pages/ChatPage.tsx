@@ -264,6 +264,9 @@ export default function ChatPage() {
           };
 
           setMessages(prev => [...prev, documentMessage]);
+
+          // Muda para o step de documentos (step 2)
+          setCurrentStep(2);
         }, 2000);
       }
     },
