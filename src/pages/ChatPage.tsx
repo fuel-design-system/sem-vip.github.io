@@ -48,6 +48,7 @@ export default function ChatPage() {
       sessionStorage.removeItem(`${chatStorageKey}_activeTab`);
       sessionStorage.removeItem(`${chatStorageKey}_currentStep`);
       sessionStorage.removeItem(`${chatStorageKey}_completedTabs`);
+      sessionStorage.removeItem(`${chatStorageKey}_clickedDocButton`);
 
       // Limpa o state para não limpar novamente ao navegar
       navigate(location.pathname, { replace: true, state: {} });
@@ -78,6 +79,10 @@ export default function ChatPage() {
   });
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
+  const [hasClickedDocumentButton, setHasClickedDocumentButton] = useState(() => {
+    const saved = sessionStorage.getItem(`${chatStorageKey}_clickedDocButton`);
+    return saved ? JSON.parse(saved) : false;
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAddedDocumentMessage = useRef(false);
 
@@ -101,6 +106,10 @@ export default function ChatPage() {
   useEffect(() => {
     sessionStorage.setItem(`${chatStorageKey}_completedTabs`, JSON.stringify(completedTabs));
   }, [completedTabs, chatStorageKey]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${chatStorageKey}_clickedDocButton`, JSON.stringify(hasClickedDocumentButton));
+  }, [hasClickedDocumentButton, chatStorageKey]);
 
   // Busca os dados do frete
   const freight = freightsData.find(f => f.id === Number(freightId));
@@ -210,6 +219,9 @@ export default function ChatPage() {
           };
 
           setMessages(prev => [...prev, tripConfirmedMessage]);
+
+          // Marca a etapa 3 (Fechamento) como concluída
+          setCompletedTabs(prev => prev.includes(3) ? prev : [...prev, 3]);
         }, 5000);
       }, 3000);
 
@@ -256,6 +268,12 @@ export default function ChatPage() {
           };
 
           setMessages(prev => [...prev, documentMessage]);
+
+          // Marca a etapa 1 (Negociação) como concluída
+          setCompletedTabs(prev => prev.includes(1) ? prev : [...prev, 1]);
+
+          // Muda para o step de documentos (step 2)
+          setCurrentStep(2);
         }, 2000);
       }
     },
@@ -517,7 +535,10 @@ export default function ChatPage() {
                         <span className="sender-name-bold">{msg.senderName}</span> {msg.text}
                       </div>
                       <div className="document-action">
-                        <button className="document-button" onClick={() => navigate(`/freight/${freightId}/chat/${contactId}/documents`)}>
+                        <button className="document-button" onClick={() => {
+                          setHasClickedDocumentButton(true);
+                          navigate(`/freight/${freightId}/chat/${contactId}/documents`);
+                        }}>
                           Liberar meus documentos
                         </button>
                       </div>
@@ -737,7 +758,7 @@ export default function ChatPage() {
               onClick={() => handleStepChange(2)}
             >
               <div className="step-badge-wrapper">
-                {currentStep === 2 && !completedTabs.includes(2) && (
+                {currentStep === 2 && !completedTabs.includes(2) && hasClickedDocumentButton && (
                   <>
                     <div className="pulse"></div>
                     <div className="clock-icon">
@@ -747,6 +768,9 @@ export default function ChatPage() {
                       </svg>
                     </div>
                   </>
+                )}
+                {currentStep === 2 && !completedTabs.includes(2) && !hasClickedDocumentButton && (
+                  <div className="pulse"></div>
                 )}
                 <div className="step-badge">
                   {completedTabs.includes(2) ? (
@@ -885,6 +909,7 @@ export default function ChatPage() {
         isOpen={isStepsSheetOpen}
         onClose={() => setIsStepsSheetOpen(false)}
         currentStep={currentStep}
+        completedTabs={completedTabs}
       />
     </div>
   );
