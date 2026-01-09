@@ -52,7 +52,10 @@ export default function DocumentsPage() {
             <div className="document-item">
               <div className="item-row">
                 <div className="avatar-image">
-                  <img src="https://cdn.builder.io/api/v1/image/assets%2F7de6902bb7ea42d4be5082a42dd00e60%2Fd2326185d8c14e199fd0ea93d543d691?format=webp&width=800" alt="Veículo" />
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="20" fill="#F4F4F5"/>
+                    <path d="M11 23C11 23.55 11.45 24 12 24C12.55 24 13 23.55 13 23C13 22.45 12.55 22 12 22C11.45 22 11 22.45 11 23ZM25 22C24.45 22 24 22.45 24 23C24 23.55 24.45 24 25 24C25.55 24 26 23.55 26 23C26 22.45 25.55 22 25 22ZM27.5 14H23.5L21 17H10V25H11.5C11.5 26.38 12.62 27.5 14 27.5C15.38 27.5 16.5 26.38 16.5 25H20.5C20.5 26.38 21.62 27.5 23 27.5C24.38 27.5 25.5 26.38 25.5 25H28V18.5L27.5 14ZM12.5 13H19.5V17H12.5V13ZM14 26C13.17 26 12.5 25.33 12.5 24.5C12.5 23.67 13.17 23 14 23C14.83 23 15.5 23.67 15.5 24.5C15.5 25.33 14.83 26 14 26ZM23 26C22.17 26 21.5 25.33 21.5 24.5C21.5 23.67 22.17 23 23 23C23.83 23 24.5 23.67 24.5 24.5C24.5 25.33 23.83 26 23 26ZM26.5 18.5H21V14.5L22.75 14.5L24.38 16.63L26.5 18.5Z" fill="#636B7E"/>
+                  </svg>
                 </div>
                 <div className="item-info">
                   <div className="item-title">Veículo</div>
