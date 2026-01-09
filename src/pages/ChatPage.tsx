@@ -751,7 +751,7 @@ export default function ChatPage() {
               onClick={() => handleStepChange(2)}
             >
               <div className="step-badge-wrapper">
-                {currentStep === 2 && !completedTabs.includes(2) && (
+                {currentStep === 2 && !completedTabs.includes(2) && hasClickedDocumentButton && (
                   <>
                     <div className="pulse"></div>
                     <div className="clock-icon">
@@ -761,6 +761,9 @@ export default function ChatPage() {
                       </svg>
                     </div>
                   </>
+                )}
+                {currentStep === 2 && !completedTabs.includes(2) && !hasClickedDocumentButton && (
+                  <div className="pulse"></div>
                 )}
                 <div className="step-badge">
                   {completedTabs.includes(2) ? (
