@@ -642,11 +642,7 @@ export default function ChatPage() {
                               </clipPath>
                             </defs>
                           </svg>
-                          <span className="reminder-text">Lembre-se! Se fizer a coleta, a empresa terá que pagar o adiantamento na sua Carteira Fretebras para desconto da Taxa de serviço.</span>
                         </div>
-                      </div>
-                      <div className="agreement-action">
-                        <button className="agreement-button">Ver acordo</button>
                       </div>
                       <div className="agreement-footer">
                         <span className="timestamp">{msg.timestamp}</span>
