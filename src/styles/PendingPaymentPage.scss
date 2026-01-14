@@ -79,9 +79,11 @@
           position: absolute;
           top: 0;
           right: 0;
+          left: 0;
           display: flex;
           height: 24px;
           align-items: center;
+          justify-content: flex-end;
           background: #DBECFF;
           border-radius: 0 0 0 8px;
           padding: 2px 8px;
