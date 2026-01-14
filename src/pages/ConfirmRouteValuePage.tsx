@@ -96,7 +96,7 @@ export default function ConfirmRouteValuePage() {
               </div>
               {hasError && (
                 <span className="error-message">
-                  Informe o valor do frete ou marque a opção abaixo caso ainda não tenha combinado
+                  Informe o valor do frete combinado
                 </span>
               )}
             </div>
