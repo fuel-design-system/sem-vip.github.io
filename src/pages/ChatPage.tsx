@@ -906,6 +906,18 @@ export default function ChatPage() {
         currentStep={currentStep}
         completedTabs={completedTabs}
       />
+
+      <PixPaymentSheet
+        isOpen={isPixPaymentSheetOpen}
+        onClose={() => setIsPixPaymentSheetOpen(false)}
+        onCopyPix={handleCopyPix}
+      />
+
+      <Toast
+        message="Pix copiado"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
     </div>
   );
 }
