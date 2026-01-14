@@ -8,7 +8,6 @@ export default function ConfirmRouteValuePage() {
   const { freightId, contactId } = useParams();
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [notAgreedYet, setNotAgreedYet] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   // Get freight data
