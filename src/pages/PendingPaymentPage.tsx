@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCountdown } from '../hooks/useCountdown';
 import '../styles/PendingPaymentPage.scss';
@@ -6,6 +6,7 @@ import freightsData from '../data/freights.json';
 
 export default function PendingPaymentPage() {
   const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState<'wallet' | 'vip' | null>(null);
 
   // Get the freight ID from sessionStorage
   const freightId = sessionStorage.getItem('negotiatedFreightId');
@@ -38,34 +39,72 @@ export default function PendingPaymentPage() {
           Identificamos o fechamento de um frete. Pague a taxa de serviço para continuar buscando fretes:
         </h1>
 
-        {/* Card da Taxa */}
-        <div className="fee-card">
-          <div className="fee-card-content">
-            <div className="fee-header">
-              <div className="fee-info">
-                <div className="fee-label">Taxa de serviço</div>
-                <button className="learn-more-link">Saiba mais</button>
-              </div>
-              <div className="fee-value">R$ 49,90</div>
+        {/* Payment Options Cards */}
+        <div className="payment-options">
+          {/* Card 1: Wallet Payment */}
+          <div className="payment-card">
+            <div className="card-tag">
+              <span className="tag-label">PRA 1 FRETE</span>
             </div>
-
-            <div className="divider"></div>
-
-            <div className="vip-section">
-              <div className="vip-banner">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.7407 8.1278L9.77591 4.02051H10.0163L12.239 8.1278H7.7407ZM9.62841 16.7609L2.60612 8.87155H9.62841V16.7609ZM10.3722 16.7609V8.87155H17.3945L10.3722 16.7609ZM13.0836 8.1278L10.699 3.70801H15.8722L17.6236 8.1278H13.0836ZM2.37695 8.1278L4.12841 3.70801H9.11404L6.89612 8.1278H2.37695Z" fill="#0769DA"/>
+            <div className="card-content">
+              <button
+                className="option-row"
+                onClick={() => setSelectedOption('wallet')}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.4873 3.5127V7.4873H19.0127V4.9873H4.9873V19.0127H19.0127V16.5127H20.4873V20.4873H3.5127V3.5127H20.4873ZM18.9873 7.5127V8.04102H20.5127V7.5127H21.4873V16.4873H20.5127V15.959H18.9873V16.4873H11.5127V7.5127H18.9873ZM20.4873 15.9834V16.4873H19.0127V15.9834H20.4873ZM12.9873 15.0127H20.0127V8.9873H12.9873V15.0127ZM16 10.5127C16.4134 10.5127 16.7644 10.657 17.0537 10.9463C17.343 11.2356 17.4873 11.5866 17.4873 12C17.4873 12.4134 17.343 12.7644 17.0537 13.0537C16.7644 13.343 16.4134 13.4873 16 13.4873C15.5866 13.4873 15.2356 13.343 14.9463 13.0537C14.657 12.7644 14.5127 12.4134 14.5127 12C14.5127 11.5866 14.657 11.2356 14.9463 10.9463C15.2356 10.657 15.5866 10.5127 16 10.5127ZM20.4873 7.5127V8.0166H19.0127V7.5127H20.4873Z" fill="#636B7E" stroke="#636B7E" strokeWidth="0.025"/>
                 </svg>
-                <span className="vip-text">Motorista VIP não paga a taxa de serviço</span>
-              </div>
+                <div className="option-text">
+                  <div className="option-title">Recebe na carteira Fretebras</div>
+                  <div className="option-subtitle">Descontar do adiantamento</div>
+                </div>
+                <div className={`radio-button ${selectedOption === 'wallet' ? 'selected' : ''}`}>
+                  {selectedOption === 'wallet' && <div className="radio-dot"></div>}
+                </div>
+              </button>
 
-              <div className="action-buttons">
-                <button className="primary-button" onClick={() => navigate('/payment/checkout')}>
-                  Pagar taxa
-                </button>
-                <button className="secondary-button">
-                  Assine o VIP por R$ 79,90/ mês
-                </button>
+              <div className="divider"></div>
+
+              <div className="value-row">
+                <span className="value-label">Valor a ser descontado:</span>
+                <span className="value-amount">R$ 29,90</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Divider "ou" */}
+          <div className="or-divider">
+            <div className="divider-line"></div>
+            <span className="divider-text">ou</span>
+            <div className="divider-line"></div>
+          </div>
+
+          {/* Card 2: VIP Subscription */}
+          <div className="payment-card">
+            <div className="card-tag">
+              <span className="tag-label">QUEM CARREGA SEMPRE</span>
+            </div>
+            <div className="card-content">
+              <button
+                className="option-row"
+                onClick={() => setSelectedOption('vip')}
+              >
+                <div className="vip-badge">
+                  <span className="vip-label">VIP</span>
+                </div>
+                <div className="option-text">
+                  <div className="option-title">Assinar o VIP</div>
+                </div>
+                <div className={`radio-button ${selectedOption === 'vip' ? 'selected' : ''}`}>
+                  {selectedOption === 'vip' && <div className="radio-dot"></div>}
+                </div>
+              </button>
+
+              <div className="divider"></div>
+
+              <div className="value-row">
+                <span className="value-label">Plano VIP Mensal</span>
+                <span className="value-amount">R$ 49,90</span>
               </div>
             </div>
           </div>
