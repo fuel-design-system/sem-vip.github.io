@@ -19,12 +19,6 @@ export default function ConfirmRouteValuePage() {
   };
 
   const handleContinue = () => {
-    // Se o checkbox estiver marcado, permite continuar sem valor
-    if (notAgreedYet) {
-      navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
-      return;
-    }
-
     // Se não tem valor preenchido, mostra erro
     if (!hasValue) {
       setHasError(true);
