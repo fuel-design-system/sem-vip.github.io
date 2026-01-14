@@ -131,22 +131,6 @@ export default function PendingPaymentPage() {
           </button>
         )}
 
-        {/* Card do Frete Fechado */}
-        <div className="freight-card">
-          <div className="freight-title">Frete fechado:</div>
-
-          <div className="route-section">
-            <svg className="route-icon" width="7" height="52" viewBox="0 0 7 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="3.5" cy="8.5" r="3" stroke="#BABEC9"/>
-              <rect x="3" y="16" width="1" height="20" fill="#BABEC9"/>
-              <path d="M6.19141 40.5L3.5 45.8818L0.808594 40.5H6.19141Z" stroke="#BABEC9"/>
-            </svg>
-            <div className="route-cities">
-              <div className="origin-city">{freight?.origin || 'Uberlândia, MG'}</div>
-              <div className="destination-city">{freight?.destination || 'Primavera do Leste, MT'}</div>
-            </div>
-          </div>
-
           <div className="divider"></div>
 
           <div className="contact-info">
