@@ -112,11 +112,6 @@ export default function PendingPaymentPage() {
               </div>
             </div>
           </div>
-
-          {/* Contador */}
-          <div className="countdown-badge">
-            <span className="countdown-text">PAGUE EM ATÉ {countdown.formatted}</span>
-          </div>
         </div>
 
         {/* Continue Button */}
