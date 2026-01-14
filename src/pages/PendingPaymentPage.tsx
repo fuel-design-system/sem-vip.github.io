@@ -115,6 +115,23 @@ export default function PendingPaymentPage() {
           </div>
         </div>
 
+        {/* Continue Button */}
+        {selectedOption && (
+          <button
+            className="continue-button"
+            onClick={() => {
+              if (selectedOption === 'wallet') {
+                navigate('/payment/checkout');
+              } else {
+                // Navigate to VIP subscription page
+                navigate('/vip-subscription');
+              }
+            }}
+          >
+            Continuar
+          </button>
+        )}
+
         {/* Card do Frete Fechado */}
         <div className="freight-card">
           <div className="freight-title">Frete fechado:</div>
