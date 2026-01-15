@@ -903,10 +903,6 @@ export default function ChatPage() {
       <ServiceFeeBottomSheet
         isOpen={isServiceFeeSheetOpen}
         onClose={() => setIsServiceFeeSheetOpen(false)}
-        onLearnMore={() => {
-          setIsServiceFeeSheetOpen(false);
-          // TODO: Navigate to service fee information page
-        }}
       />
 
       <Toast
