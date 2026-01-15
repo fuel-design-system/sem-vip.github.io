@@ -20,12 +20,6 @@ export default function PixPaymentSheet({ isOpen, onClose, onCopyPix }: PixPayme
     };
   }, [isOpen]);
 
-  const handleWhatsAppShare = () => {
-    const pixKey = '7192d4fd-1d90-4b2c-90fa-67a4akfl';
-    const message = encodeURIComponent(`Minha chave Pix: ${pixKey}`);
-    window.open(`https://wa.me/?text=${message}`, '_blank');
-  };
-
   return (
     <>
       <div className={`sheet-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}></div>
@@ -87,7 +81,7 @@ export default function PixPaymentSheet({ isOpen, onClose, onCopyPix }: PixPayme
                     <path d="M10.8 3.29688V1.6125C10.8 1.27423 10.5258 1 10.1875 1H1.6125C1.27423 1 1 1.27422 1 1.6125V10.1875C1 10.5258 1.27423 10.8 1.6125 10.8H3.29688M5.2 5.8125C5.2 5.47422 5.47423 5.2 5.8125 5.2H14.3875C14.7258 5.2 15 5.47423 15 5.8125V14.3875C15 14.7258 14.7258 15 14.3875 15H5.8125C5.47422 15 5.2 14.7258 5.2 14.3875V5.8125Z" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
-                <button className="secondary-button" onClick={handleWhatsAppShare}>
+                <button className="secondary-button">
                   <span>Enviar para WhatsApp</span>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.9373 9.78543C11.8914 9.70036 11.7603 9.64364 11.5702 9.54439C11.3801 9.44514 10.4295 8.94179 10.259 8.87089C10.0886 8.8 9.95089 8.76455 9.82633 8.97723C9.70177 9.18992 9.49854 9.49476 9.38709 9.62946C9.27564 9.76416 9.16419 9.78543 8.96751 9.67909C7.84566 9.15042 6.89905 8.26524 6.25339 7.14107C6.14194 6.93547 6.25339 6.82204 6.33862 6.72279C6.65985 6.37541 6.66641 6.42503 6.74508 6.25489C6.80223 6.14229 6.80223 6.00592 6.74508 5.89332C6.64674 5.7728 6.28617 4.7661 6.12227 4.35491C5.95838 3.94373 5.13234 3.86574 4.8111 4.24857C1.40206 8.13359 9.70832 14.7906 11.8324 10.7354C12.0097 10.462 12.0491 10.1109 11.9373 9.79961M8.00623 1.00005C4.15538 0.986156 1.02058 4.11707 1.00001 7.99759C0.997252 9.47282 1.46395 10.9101 2.33157 12.0983L1.46046 14.7004L4.14845 13.8414C6.29237 15.26 9.03416 15.3848 11.2962 14.1666C13.5583 12.9484 14.979 10.5821 15 7.99759C14.9794 4.12198 11.8522 0.993082 8.00623 1.00005Z" stroke="#111111" strokeLinecap="round" strokeLinejoin="round"/>

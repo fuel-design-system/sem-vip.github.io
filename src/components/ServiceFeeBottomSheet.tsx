@@ -38,13 +38,6 @@ export default function ServiceFeeBottomSheet({ isOpen, onClose }: ServiceFeeBot
     // You can add a toast notification here if needed
   };
 
-  const handleWhatsApp = () => {
-    const pixKey = '7192d4fd-1d90-4b2c-90fa-67a4akfl';
-    const message = `Olá! Aqui está minha chave Pix para receber o pagamento do frete: ${pixKey}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   if (!isOpen) return null;
 
   return (
