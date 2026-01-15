@@ -8,7 +8,6 @@ export default function ConfirmRouteValuePage() {
   const { freightId, contactId } = useParams();
   const [freightValue, setFreightValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [notAgreedYet, setNotAgreedYet] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   // Get freight data
@@ -18,21 +17,26 @@ export default function ConfirmRouteValuePage() {
     navigate(-1);
   };
 
-  const handleContinue = () => {
-    // Se o checkbox estiver marcado, permite continuar sem valor
-    if (notAgreedYet) {
-      navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
-      return;
-    }
-
-    // Se não tem valor preenchido, mostra erro
-    if (!hasValue) {
+  const handleSubmitDocuments = () => {
+    // Check if the value is empty
+    if (!freightValue || freightValue.trim() === '') {
       setHasError(true);
       return;
     }
 
-    // Se tem valor, navega para a página de formas de cobrança da taxa
-    navigate(`/freight/${freightId}/chat/${contactId}/payment-fee`);
+    // Clear error and navigate to chat with documents submitted state
+    setHasError(false);
+    navigate(`/freight/${freightId}/chat/${contactId}`, {
+      replace: true,
+      state: { documentsSubmitted: true }
+    });
+  };
+
+  const handleSkipValue = () => {
+    // Navega para o chat sem enviar documentos
+    navigate(`/freight/${freightId}/chat/${contactId}`, {
+      replace: true
+    });
   };
 
   // Currency mask function
@@ -58,7 +62,7 @@ export default function ConfirmRouteValuePage() {
     const inputValue = e.target.value;
     const formattedValue = formatCurrency(inputValue);
     setFreightValue(formattedValue);
-    // Limpa o erro quando o usuário começa a digitar
+    // Clear error when user starts typing
     if (hasError) {
       setHasError(false);
     }
@@ -79,36 +83,14 @@ export default function ConfirmRouteValuePage() {
 
       {/* Content */}
       <div className="page-content">
-        <h1 className="page-title">Confirme a rota e o valor combinado</h1>
+        <h1 className="page-title">Confirme o valor do frete combinado:</h1>
 
         <div className="content-container">
           {/* Route Card */}
           <div className="route-card">
-            <div className="route-section">
-              <div className="route-header">
-                <span className="route-label">Rota</span>
-              </div>
-              
-              <div className="route-info">
-                <div className="route-icon">
-                  <svg width="7" height="52" viewBox="0 0 7 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="3.5" cy="8.5" r="3" stroke="#BABEC9"/>
-                    <rect x="3" y="16" width="1" height="20" fill="#BABEC9"/>
-                    <path d="M6.19141 40.5L3.5 45.8818L0.808594 40.5H6.19141Z" stroke="#BABEC9"/>
-                  </svg>
-                </div>
-                <div className="route-cities">
-                  <div className="city-origin">{freight?.origin || 'Origem não informada'}</div>
-                  <div className="city-destination">{freight?.destination || 'Destino não informado'}</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="divider"></div>
-
             {/* Value Input */}
             <div className="value-section">
-              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''} ${hasError ? 'error' : ''} ${notAgreedYet ? 'disabled' : ''}`}>
+              <div className={`input-wrapper ${isFocused || hasValue ? 'focused' : ''} ${hasError ? 'error' : ''}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -118,59 +100,38 @@ export default function ConfirmRouteValuePage() {
                   onBlur={() => setIsFocused(false)}
                   placeholder={isFocused || hasValue ? 'R$ 0,00' : ''}
                   className="value-input"
-                  disabled={notAgreedYet}
                 />
                 <label className="floating-label">
                   Qual o valor do frete combinado?
                 </label>
               </div>
               {hasError && (
-                <span className="error-message">
-                  Informe o valor do frete ou marque a opção abaixo caso ainda não tenha combinado
-                </span>
+                <div className="error-hint">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clipPath="url(#clip0_574_18563)">
+                      <path fillRule="evenodd" clipRule="evenodd" d="M6 0.5C5.78299 0.5 5.57019 0.559888 5.38504 0.673068C5.19989 0.786249 5.04956 0.948331 4.95062 1.14147L4.95059 1.14146L4.94887 1.1449L0.626131 9.79039L0.625814 9.79102C0.535583 9.97032 0.492631 10.1697 0.501033 10.3703C0.509445 10.5712 0.569052 10.7665 0.674194 10.9378C0.779335 11.1091 0.926521 11.2506 1.10177 11.3491C1.27702 11.4475 1.47452 11.4994 1.67551 11.5001H1.6767H10.3233H10.3244C10.5254 11.4994 10.723 11.4475 10.8982 11.3491C11.0735 11.2506 11.2206 11.1091 11.3258 10.9378C11.431 10.7665 11.4906 10.5712 11.499 10.3703C11.5074 10.1697 11.4644 9.97024 11.3741 9.79094L11.3738 9.79039L7.05112 1.1449L7.05113 1.1449L7.04938 1.14147C6.95043 0.948331 6.8001 0.786249 6.61495 0.673068C6.4298 0.559888 6.217 0.5 6 0.5ZM5.99997 3.93515C6.2713 3.93515 6.49126 4.1551 6.49126 4.42643V6.78459C6.49126 7.05591 6.2713 7.27587 5.99997 7.27587C5.72864 7.27587 5.50869 7.05591 5.50869 6.78459V4.42643C5.50869 4.1551 5.72864 3.93515 5.99997 3.93515ZM5.99997 9.92882C6.43409 9.92882 6.78603 9.5769 6.78603 9.14277C6.78603 8.70863 6.43409 8.35671 5.99997 8.35671C5.56585 8.35671 5.21392 8.70863 5.21392 9.14277C5.21392 9.5769 5.56585 9.92882 5.99997 9.92882Z" fill="#D92641"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_574_18563">
+                        <rect width="12" height="12" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span className="error-text">Digite o valor do frete</span>
+                </div>
               )}
             </div>
-
-            {/* Checkbox */}
-            <div className="checkbox-section">
-              <button
-                className={`checkbox ${notAgreedYet ? 'checked' : ''}`}
-                onClick={() => {
-                  setNotAgreedYet(!notAgreedYet);
-                  // Limpa o erro quando marca/desmarca o checkbox
-                  if (hasError) {
-                    setHasError(false);
-                  }
-                }}
-              >
-                <div className="checkbox-box">
-                  {notAgreedYet && (
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
-                </div>
-              </button>
-              <span className="checkbox-label">Não combinei o valor do frete ainda</span>
-            </div>
-          </div>
-
-          {/* Info Message */}
-          <div className="info-message">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.45866 13.792H10.542V9.00033H9.45866V13.792ZM9.99595 7.74074C10.1618 7.74074 10.3023 7.68463 10.4174 7.57241C10.5325 7.46019 10.5901 7.32116 10.5901 7.15533C10.5901 6.98949 10.534 6.84901 10.4218 6.73387C10.3096 6.61887 10.1705 6.56137 10.0047 6.56137C9.83887 6.56137 9.69838 6.61741 9.58324 6.72949C9.4681 6.84171 9.41053 6.98074 9.41053 7.14658C9.41053 7.31241 9.46664 7.4529 9.57887 7.56803C9.69109 7.68317 9.83012 7.74074 9.99595 7.74074ZM10.0074 17.5837C8.96421 17.5837 7.98171 17.3863 7.05991 16.9916C6.1381 16.5969 5.3313 16.0537 4.63949 15.3622C3.94769 14.6707 3.40428 13.8645 3.00928 12.9437C2.61442 12.023 2.41699 11.0391 2.41699 9.9922C2.41699 8.94526 2.61435 7.96435 3.00908 7.04949C3.4038 6.13463 3.94692 5.3313 4.63845 4.63949C5.32998 3.94769 6.13616 3.40428 7.05699 3.00928C7.97769 2.61442 8.96151 2.41699 10.0085 2.41699C11.0554 2.41699 12.0363 2.61435 12.9512 3.00908C13.866 3.4038 14.6694 3.94692 15.3612 4.63845C16.053 5.32998 16.5964 6.13449 16.9914 7.05199C17.3862 7.96963 17.5837 8.95005 17.5837 9.99324C17.5837 11.0364 17.3863 12.0189 16.9916 12.9407C16.5969 13.8625 16.0537 14.6694 15.3622 15.3612C14.6707 16.053 13.8662 16.5964 12.9487 16.9914C12.031 17.3862 11.0506 17.5837 10.0074 17.5837ZM10.0003 16.5003C11.8059 16.5003 13.3406 15.8684 14.6045 14.6045C15.8684 13.3406 16.5003 11.8059 16.5003 10.0003C16.5003 8.19477 15.8684 6.66005 14.6045 5.39616C13.3406 4.13227 11.8059 3.50033 10.0003 3.50033C8.19477 3.50033 6.66005 4.13227 5.39616 5.39616C4.13227 6.66005 3.50033 8.19477 3.50033 10.0003C3.50033 11.8059 4.13227 13.3406 5.39616 14.6045C6.66005 15.8684 8.19477 16.5003 10.0003 16.5003Z" fill="#636B7E"/>
-            </svg>
-            <p className="info-text">
-              Usamos essas informações caso você tenha algum problema com a empresa.
-            </p>
           </div>
         </div>
       </div>
 
-      {/* Bottom Button */}
+      {/* Bottom Buttons */}
       <div className="bottom-button-container">
-        <button className="continue-button" onClick={handleContinue}>
-          Continuar
+        <button className="primary-button" onClick={handleSubmitDocuments}>
+          Concluir e enviar documentos
+        </button>
+        <button className="secondary-button" onClick={handleSkipValue}>
+          Não combinei o valor do frete ainda
         </button>
       </div>
     </div>

@@ -1,0 +1,402 @@
+.service-fee-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+.service-fee-bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding: 8px 16px 24px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: 24px 24px 0 0;
+  background: #FFF;
+  box-shadow: 0 6px 12px -6px rgba(38, 47, 74, 0.12), 0 8px 24px -4px rgba(38, 47, 74, 0.08);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+  max-width: 100%;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .sheet-holder {
+    width: 48px;
+    height: 4px;
+    border-radius: 50px;
+    background: #DDDFE4;
+  }
+
+  .sheet-close-button {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Hide state for content switching
+  .hide {
+    display: none !important;
+  }
+
+  // Initial Service Fee Content
+  .sheet-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+  }
+
+  .sheet-title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .sheet-title {
+    align-self: stretch;
+    color: #111;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.8px;
+    margin: 0;
+  }
+
+  .fee-card {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: stretch;
+    border-radius: 16px;
+    background: rgba(0, 43, 92, 0.06);
+  }
+
+  .fee-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .fee-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    color: #636B7E;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+
+  .fee-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    color: #111;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 150%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sheet-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .primary-button {
+    display: flex;
+    min-width: 64px;
+    min-height: 48px;
+    max-height: 48px;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 500px;
+    background: #0769DA;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #0557B8;
+    }
+
+    &:active {
+      background: #044899;
+      transform: scale(0.98);
+    }
+  }
+
+  // Pix Content Styles
+  .pix-content {
+    display: flex;
+    padding: 0 4px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+  }
+
+  .pix-title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .pix-title {
+    align-self: stretch;
+    color: #111;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.8px;
+    margin: 0;
+  }
+
+  .pix-card {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    border-radius: 16px;
+    background: rgba(0, 43, 92, 0.06);
+    overflow: hidden;
+  }
+
+  .pix-info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .pix-text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .pix-label {
+    align-self: stretch;
+    overflow: hidden;
+    color: #636B7E;
+    text-overflow: ellipsis;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  .pix-key-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    align-self: stretch;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  .pix-key-value {
+    flex: 1;
+    overflow: hidden;
+    color: #111;
+    text-overflow: ellipsis;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 150%;
+  }
+
+  .copy-button-small {
+    display: flex;
+    min-width: 64px;
+    min-height: 32px;
+    max-height: 32px;
+    padding: 0 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 500px;
+    background: rgba(0, 43, 92, 0.06);
+    border: none;
+    color: #111;
+    text-align: center;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 160%;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(0, 43, 92, 0.08);
+    }
+
+    &:active {
+      background: rgba(0, 43, 92, 0.12);
+      transform: scale(0.98);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  .pix-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    height: 1px;
+    background: rgba(0, 43, 92, 0.06);
+  }
+
+  .pix-transfer-info {
+    align-self: stretch;
+    color: #636B7E;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+
+    .transfer-bold {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .transfer-normal {
+      font-weight: 500;
+      color: #636B7E;
+    }
+  }
+
+  .whatsapp-button {
+    display: flex;
+    min-width: 64px;
+    min-height: 48px;
+    max-height: 48px;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 100px;
+    background: #0769DA;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Satoshi, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 150%;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #0557B8;
+    }
+
+    &:active {
+      background: #044899;
+      transform: scale(0.98);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes slideUp {
+    from {
+      transform: translate(-50%, 100%);
+    }
+    to {
+      transform: translate(-50%, 0);
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import '../styles/ChatPage.scss';
 import freightsData from '../data/freights.json';
 import NegotiationStepsSheet from '../components/NegotiationStepsSheet';
-import PixPaymentSheet from '../components/PixPaymentSheet';
+import ServiceFeeBottomSheet from '../components/ServiceFeeBottomSheet';
 import Toast from '../components/Toast';
 
 interface Contact {
@@ -81,7 +81,7 @@ export default function ChatPage() {
   });
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
-  const [isPixPaymentSheetOpen, setIsPixPaymentSheetOpen] = useState(false);
+  const [isServiceFeeSheetOpen, setIsServiceFeeSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [hasClickedDocumentButton, setHasClickedDocumentButton] = useState(() => {
     const saved = sessionStorage.getItem(`${chatStorageKey}_clickedDocButton`);
@@ -89,7 +89,7 @@ export default function ChatPage() {
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAddedDocumentMessage = useRef(false);
-  const hasOpenedPixSheet = useRef(false);
+  const hasOpenedServiceFeeSheet = useRef(false);
 
   // Salva estados importantes no sessionStorage
   useEffect(() => {
@@ -185,6 +185,14 @@ export default function ChatPage() {
       setCompletedTabs(prev => prev.includes(1) ? prev : [...prev, 1]);
       setCurrentStep(2);
 
+      // Após 3 segundos, exibe o bottom sheet de taxa de serviço
+      setTimeout(() => {
+        if (!hasOpenedServiceFeeSheet.current) {
+          setIsServiceFeeSheetOpen(true);
+          hasOpenedServiceFeeSheet.current = true;
+        }
+      }, 3000);
+
       // Após 3 segundos, envia a mensagem de revisão do acordo
       setTimeout(() => {
         const now2 = new Date();
@@ -227,14 +235,6 @@ export default function ChatPage() {
 
           // Marca a etapa 3 (Fechamento) como concluída
           setCompletedTabs(prev => prev.includes(3) ? prev : [...prev, 3]);
-
-          // Abre automaticamente o PixPaymentSheet após 1 segundo
-          setTimeout(() => {
-            if (!hasOpenedPixSheet.current) {
-              setIsPixPaymentSheetOpen(true);
-              hasOpenedPixSheet.current = true;
-            }
-          }, 1000);
         }, 5000);
       }, 3000);
 
@@ -674,7 +674,7 @@ export default function ChatPage() {
                         </div>
                       </div>
                       <div className="trip-caption">
-                        <div className="trip-title">Carlos S. analisou seus documentos e confirmou viagem!</div>
+                        <div className="trip-title">Carlos S. analisou seus documentos e confirmou viagem! Importante: Você deve pagar a taxa assim que carregar.</div>
                       </div>
                       <div className="trip-footer">
                         <span className="timestamp">{msg.timestamp}</span>
@@ -900,10 +900,9 @@ export default function ChatPage() {
         completedTabs={completedTabs}
       />
 
-      <PixPaymentSheet
-        isOpen={isPixPaymentSheetOpen}
-        onClose={() => setIsPixPaymentSheetOpen(false)}
-        onCopyPix={handleCopyPix}
+      <ServiceFeeBottomSheet
+        isOpen={isServiceFeeSheetOpen}
+        onClose={() => setIsServiceFeeSheetOpen(false)}
       />
 
       <Toast
