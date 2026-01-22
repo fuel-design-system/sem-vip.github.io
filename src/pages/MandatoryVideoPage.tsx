@@ -114,7 +114,7 @@ export default function MandatoryVideoPage() {
         </div>
       </div>
 
-      <div className="video-container" onClick={handleVideoClick}>
+      <div className="video-container">
         <div
           className="video-wrapper"
           style={{
@@ -125,7 +125,6 @@ export default function MandatoryVideoPage() {
             borderRadius: 16,
             overflow: "hidden",
             background: "#000",
-            cursor: "pointer",
           }}
         >
           <div
@@ -135,6 +134,18 @@ export default function MandatoryVideoPage() {
               inset: 0,
               width: "100%",
               height: "100%",
+            }}
+          />
+          {/* Transparent overlay to capture clicks */}
+          <div
+            onClick={handleVideoClick}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              cursor: "pointer",
+              zIndex: 10,
             }}
           />
         </div>
