@@ -72,35 +72,58 @@ export default function FreightDetail() {
           </div>
         </div>
 
-        {/* Service Fee Card - New Design */}
+        {/* Service Fee Card */}
         <div className="detail-card service-fee-card">
-          <div className="service-fee-header">
-            Uma taxa de serviço será cobrada caso você carregue esse frete:
+          <div className="service-fee-title">
+            <span className="title-normal">O que é a </span>
+            <span className="title-highlight">taxa de serviço</span>
+            <span className="title-normal">?</span>
           </div>
 
-          <div className="service-fee-value-container">
-            <div className="fee-info-wrapper">
-              <div className="fee-label-section">
-                <div className="fee-label-text">Valor da taxa:</div>
-                <a href="#" className="learn-more-link">Saiba mais</a>
-              </div>
-              <div className="fee-amount">R$ 49,90</div>
+          <div className="service-fee-description">
+            É a taxa que a Fretebras usa pra manter a plataforma, o atendimento e sua segurança nas negociações.
+          </div>
+
+          <div className="service-fee-value-card">
+            <div className="fee-value-row">
+              <div className="fee-label">Valor da taxa:</div>
+              <div className="fee-amount">R$ 29,90</div>
             </div>
           </div>
 
-          <div className="fee-divider"></div>
-
-          <div className="vip-benefits-section">
-            <div className="vip-message">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.73875 8.1278L9.77396 4.02051H10.0144L12.2371 8.1278H7.73875ZM9.62646 16.7609L2.60417 8.87155H9.62646V16.7609ZM10.3702 16.7609V8.87155H17.3925L10.3702 16.7609ZM13.0817 8.1278L10.6971 3.70801H15.8702L17.6217 8.1278H13.0817ZM2.375 8.1278L4.12646 3.70801H9.11208L6.89417 8.1278H2.375Z" fill="#0769DA"/>
+          <div className="service-fee-topics">
+            <div className="topic-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.37293 2.11536L8.00157 14.9545L12.6296 2.11536M0.5 6.14547H15.4995M4.88705 6.14546L8.00141 2L11.1158 6.14546M12.9844 2.41455C12.8877 2.28583 12.7623 2.18136 12.6182 2.10941C12.474 2.03746 12.3151 2 12.1539 2H3.84896C3.6878 2 3.52885 2.03746 3.3847 2.10941C3.24055 2.18136 3.11516 2.28583 3.01846 2.41455L0.708987 5.48979C0.56883 5.67646 0.495863 5.90489 0.501892 6.1381C0.507921 6.37131 0.592592 6.59567 0.742206 6.77488L7.20486 14.5822C7.3023 14.6983 7.42406 14.7917 7.56157 14.8558C7.69908 14.9199 7.849 14.9531 8.00076 14.9531C8.15252 14.9531 8.30243 14.9199 8.43994 14.8558C8.57745 14.7917 8.69921 14.6983 8.79665 14.5822L15.2593 6.77488C15.4089 6.59567 15.4936 6.37131 15.4996 6.1381C15.5056 5.90489 15.4327 5.67646 15.2925 5.48979L12.9844 2.41455Z" stroke="#0769DA" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="vip-message-text">Motorista VIP não paga a taxa de serviço.</span>
+              <span className="topic-text-bold">Motoristas VIP não pagam essa taxa</span>
             </div>
-            <button className="subscribe-vip-button">
-              Assine o VIP por R$ 79,00/ mês
-            </button>
+
+            <div className="topic-divider"></div>
+
+            <div className="topic-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.5 3.5L8 0.5L15.5 3.5M0.5 3.5L8 6.5M0.5 3.5V12.5L8 15.5M8 6.5L15.5 3.5M8 6.5V15.5M15.5 3.5V12.5L8 15.5M12.1247 4.85L4.62467 1.85M13.75 11L12.5 11.5" stroke="#0769DA" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span className="topic-text">Só é cobrada quando você carrega um frete pela Fretebras</span>
+            </div>
+
+            <div className="topic-divider"></div>
+
+            <div className="topic-item">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 5H7.19267C6.86912 4.97417 6.55052 5.0915 6.32101 5.32101C6.0915 5.55052 5.97417 5.86912 6 6.19267C6 7.5 10 8.5 10 9.80733C10.0058 10.1254 9.88207 10.4322 9.65712 10.6571C9.43217 10.8821 9.12541 11.0058 8.80733 11H6M8 5V3.5M8 12.5V11M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z" stroke="#0769DA" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span className="topic-text">Não mexe no valor que a empresa te paga pelo frete.</span>
+            </div>
           </div>
+
+          <button className="learn-more-button">
+            <span>Saiba mais sobre a taxa</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.55859 2.17001V13.83C1.55858 14.0029 1.60339 14.1728 1.68865 14.3233C1.77391 14.4737 1.89671 14.5994 2.04507 14.6882C2.19342 14.777 2.36226 14.8258 2.53511 14.8298C2.70795 14.8339 2.8789 14.7931 3.03126 14.7113L13.9133 8.88135C14.0727 8.79588 14.2059 8.66878 14.2988 8.51358C14.3917 8.35838 14.4408 8.18089 14.4408 8.00001C14.4408 7.81914 14.3917 7.64165 14.2988 7.48645C14.2059 7.33124 14.0727 7.20414 13.9133 7.11868L3.03126 1.28868C2.8789 1.20696 2.70795 1.16614 2.53511 1.1702C2.36226 1.17426 2.19342 1.22306 2.04507 1.31185C1.89671 1.40063 1.77391 1.52636 1.68865 1.67677C1.60339 1.82718 1.55858 1.99712 1.55859 2.17001V2.17001Z" stroke="#111111" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
 
         {/* Cargo Card */}
@@ -241,6 +264,7 @@ export default function FreightDetail() {
       <div className="bottom-bar">
         <div className="bottom-price">
           <div className="price-value">R$ {freight.price}</div>
+          <div className="service-fee-text">Taxa de serviço:  R$ 29,90</div>
           <div className="price-details">
             <span className="toll-info">Pedágio incluso</span>
             <div className="antt-badge">
