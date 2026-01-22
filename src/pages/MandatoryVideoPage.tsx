@@ -74,8 +74,18 @@ export default function MandatoryVideoPage() {
     };
   }, []);
 
-  const handleVideoClick = () => {
+  const handleVideoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (playerRef.current) {
+      // Ensure video is playing
+      const playerState = playerRef.current.getPlayerState();
+      if (playerState !== window.YT.PlayerState.PLAYING) {
+        playerRef.current.playVideo();
+      }
+
+      // Toggle mute
       if (isMuted) {
         playerRef.current.unMute();
         setIsMuted(false);
