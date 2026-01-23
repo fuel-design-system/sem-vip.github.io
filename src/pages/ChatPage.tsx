@@ -663,7 +663,17 @@ export default function ChatPage() {
                         </div>
                       </div>
                       <div className="trip-caption">
-                        <div className="trip-title">Carlos S. analisou seus documentos e confirmou viagem! Importante: Você deve pagar a taxa assim que carregar.</div>
+                        <div className="trip-title">
+                          Carlos S. confirmou a viagem!
+                          {freight && (
+                            <>
+                              <br /><br />
+                              📍 {freight.origin.split(',')[1]?.trim() || freight.origin.split('-')[1]?.trim() || 'MG'} → {freight.destination.split(',')[1]?.trim() || freight.destination.split('-')[1]?.trim() || 'MT'} | {freight.product}
+                              <br /><br />
+                            </>
+                          )}
+                          Combine a coleta e receba o adiantamento no Pix da sua Carteira Fretebras.
+                        </div>
                       </div>
                       <div className="trip-footer">
                         <span className="timestamp">{msg.timestamp}</span>
