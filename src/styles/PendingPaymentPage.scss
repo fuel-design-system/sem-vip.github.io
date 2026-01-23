@@ -257,81 +257,56 @@
       }
     }
 
-    .payment-options {
-      position: relative;
+    .payment-options-card {
       display: flex;
+      padding: 16px;
       flex-direction: column;
-      gap: $space-2;
+      gap: 16px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      margin-bottom: 24px;
 
-      .payment-card {
-        position: relative;
-        background: #FFF;
-        border-radius: $radius-lg;
+      .payment-options-title {
+        color: $text-medium;
+        font-family: $font-satoshi;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        line-height: 1.5;
         overflow: hidden;
-        padding-bottom: 24px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-        .card-tag-wrapper {
-          position: absolute;
-          top: 0;
-          right: 0;
-          left: 0;
+      .payment-options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .payment-option {
           display: flex;
-          height: 24px;
+          padding-right: 12px;
           align-items: center;
-          justify-content: flex-end;
-          border-radius: 0 0 0 8px;
-          overflow: hidden;
+          gap: 16px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          text-align: left;
+          transition: opacity 0.2s;
 
-          .card-tag {
-            display: flex;
-            padding: 2px 8px;
-            justify-content: center;
-            align-items: center;
-            align-self: stretch;
-            background: #DBECFF;
-
-            .tag-label {
-              color: #0769DA;
-              font-family: $font-satoshi;
-              font-size: 10px;
-              font-weight: $font-weight-bold;
-              line-height: 1.6;
-              letter-spacing: 0.4px;
-              text-transform: uppercase;
-            }
-          }
-        }
-
-        .card-content {
-          display: flex;
-          flex-direction: column;
-          gap: $space-4;
-          padding: 0 $space-4;
-          padding-top: 16px;
-
-          @media (max-width: 640px) {
-            padding-top: 32px;
+          &:hover {
+            opacity: 0.8;
           }
 
-          .option-row {
+          &:active {
+            opacity: 0.6;
+          }
+
+          .option-content {
             display: flex;
             align-items: center;
-            gap: $space-4;
-            background: transparent;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            transition: opacity 0.2s;
-
-            &:hover {
-              opacity: 0.8;
-            }
-
-            &:active {
-              opacity: 0.6;
-            }
+            gap: 16px;
+            flex: 1;
 
             svg {
               flex-shrink: 0;
@@ -339,154 +314,92 @@
               height: 24px;
             }
 
-            .vip-badge {
-              display: flex;
-              padding: 2px 4px;
-              justify-content: center;
-              align-items: center;
-              border-radius: 4px;
-              background: #024CA2;
-
-              .vip-label {
-                color: #FFF;
-                font-family: $font-satoshi;
-                font-size: 9px;
-                font-weight: $font-weight-bold;
-                line-height: 1.6;
-                letter-spacing: 0.4px;
-                text-transform: uppercase;
-              }
-            }
-
-            .option-text {
-              display: flex;
-              flex-direction: column;
-              gap: 2px;
-              flex: 1;
-
-              .option-title {
-                color: $text-strong;
-                font-family: $font-satoshi;
-                font-size: $font-size-sm;
-                font-weight: $font-weight-medium;
-                line-height: 1.5;
-              }
-
-              .option-subtitle {
-                color: $text-medium;
-                font-family: $font-satoshi;
-                font-size: $font-size-xs;
-                font-weight: $font-weight-medium;
-                line-height: 1.6;
-              }
-            }
-
-            .radio-button {
-              display: flex;
-              width: 40px;
-              height: 40px;
-              padding: 4px;
-              align-items: center;
-              justify-content: center;
-              flex-shrink: 0;
-              position: relative;
-
-              &::before {
-                content: '';
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                border: 2px solid #BABEC9;
-                display: block;
-              }
-
-              &.selected::before {
-                border-color: #0769DA;
-              }
-
-              .radio-dot {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: #0769DA;
-              }
-            }
-          }
-
-          .divider {
-            height: 1px;
-            background-color: #DFE1E6;
-            margin: 0;
-          }
-
-          .value-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: $space-2;
-
-            .value-label {
-              color: $text-medium;
+            .option-label {
+              color: $text-strong;
               font-family: $font-satoshi;
               font-size: $font-size-sm;
               font-weight: $font-weight-medium;
               line-height: 1.5;
-              flex: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
 
-            .value-amount {
-              color: $text-strong;
-              font-family: $font-satoshi;
-              font-size: $font-size-lg;
-              font-weight: $font-weight-medium;
-              line-height: 1.5;
+            .card-info {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+
+            .vip-text {
+              display: flex;
+              flex-direction: column;
+              gap: 4px;
+
+              .vip-price {
+                color: $text-strong;
+                font-family: $font-satoshi;
+                font-size: $font-size-xs;
+                font-weight: $font-weight-bold;
+                line-height: 1.6;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+
+          .radio-button {
+            display: flex;
+            width: 20px;
+            height: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+
+            &::before {
+              content: '';
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              border: 2px solid #BABEC9;
+              display: block;
+            }
+
+            &.selected::before {
+              border-color: #0769DA;
+            }
+
+            .radio-dot {
+              position: absolute;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background: #0769DA;
             }
           }
         }
-      }
 
-      .or-divider {
-        display: flex;
-        align-items: center;
-        gap: $space-4;
-        padding: $space-4 0;
+        .option-divider {
+          height: 33px;
+          padding: 16px 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-end;
 
-        .divider-line {
-          flex: 1;
-          height: 1px;
-          background: #BABEC9;
-        }
-
-        .divider-text {
-          color: $text-strong;
-          font-family: $font-satoshi;
-          font-size: $font-size-sm;
-          font-weight: $font-weight-bold;
-          line-height: 1.5;
-        }
-      }
-
-      .countdown-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        height: 24px;
-        align-items: center;
-        justify-content: center;
-        background: $color-surface-support;
-        border-radius: 0 $radius-lg 0 8px;
-        padding: 0 8px;
-
-        .countdown-text {
-          color: $text-strong;
-          font-family: $font-satoshi;
-          font-size: 10px;
-          font-weight: $font-weight-bold;
-          line-height: 1.6;
-          letter-spacing: 0.4px;
-          text-transform: uppercase;
+          &::after {
+            content: '';
+            height: 1px;
+            width: 100%;
+            background: #DFE1E6;
+          }
         }
       }
     }
