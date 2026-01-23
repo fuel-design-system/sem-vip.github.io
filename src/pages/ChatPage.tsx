@@ -3,7 +3,6 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import '../styles/ChatPage.scss';
 import freightsData from '../data/freights.json';
 import NegotiationStepsSheet from '../components/NegotiationStepsSheet';
-import ServiceFeeBottomSheet from '../components/ServiceFeeBottomSheet';
 import Toast from '../components/Toast';
 
 interface Contact {
@@ -81,7 +80,6 @@ export default function ChatPage() {
   });
   const [isRouteCardExpanded, setIsRouteCardExpanded] = useState(false);
   const [isStepsSheetOpen, setIsStepsSheetOpen] = useState(false);
-  const [isServiceFeeSheetOpen, setIsServiceFeeSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [hasClickedDocumentButton, setHasClickedDocumentButton] = useState(() => {
     const saved = sessionStorage.getItem(`${chatStorageKey}_clickedDocButton`);
@@ -89,7 +87,6 @@ export default function ChatPage() {
   });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const hasAddedDocumentMessage = useRef(false);
-  const hasOpenedServiceFeeSheet = useRef(false);
 
   // Salva estados importantes no sessionStorage
   useEffect(() => {
@@ -890,11 +887,6 @@ export default function ChatPage() {
         onClose={() => setIsStepsSheetOpen(false)}
         currentStep={currentStep}
         completedTabs={completedTabs}
-      />
-
-      <ServiceFeeBottomSheet
-        isOpen={isServiceFeeSheetOpen}
-        onClose={() => setIsServiceFeeSheetOpen(false)}
       />
 
       <Toast
