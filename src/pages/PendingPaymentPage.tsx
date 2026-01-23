@@ -6,7 +6,7 @@ import freightsData from '../data/freights.json';
 
 export default function PendingPaymentPage() {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState<'wallet' | 'vip' | null>(null);
+  const [selectedOption, setSelectedOption] = useState<'pix' | 'card' | 'vip' | 'new-card' | null>(null);
 
   // Get the freight ID from sessionStorage
   const freightId = sessionStorage.getItem('negotiatedFreightId');
