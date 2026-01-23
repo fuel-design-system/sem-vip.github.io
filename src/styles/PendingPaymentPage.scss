@@ -71,7 +71,7 @@
       gap: 16px;
       border-radius: 16px;
       background: #FFFFFF;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
 
       .fee-info-row {
         display: flex;
@@ -98,6 +98,161 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .freight-loaded-card {
+      display: flex;
+      padding: 16px;
+      flex-direction: column;
+      gap: 16px;
+      border-radius: 16px;
+      border: 1px solid #BABEC9;
+      background: #FFFFFF;
+      margin-bottom: 24px;
+
+      .freight-loaded-title {
+        color: $text-medium;
+        font-family: $font-satoshi;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        line-height: 1.5;
+      }
+
+      .freight-loaded-info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .freight-price-section {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .freight-price {
+            color: $text-strong;
+            font-family: $font-satoshi;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            line-height: 1.5;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .freight-details {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            flex-wrap: wrap;
+
+            .freight-product,
+            .freight-separator,
+            .freight-weight {
+              color: $text-medium;
+              font-family: $font-satoshi;
+              font-size: $font-size-xs;
+              font-weight: $font-weight-medium;
+              line-height: 1.6;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+
+        .freight-route {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .route-icon {
+            flex-shrink: 0;
+            align-self: stretch;
+          }
+
+          .route-cities {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+
+            .origin-city,
+            .destination-city {
+              color: $text-strong;
+              font-family: $font-satoshi;
+              font-size: $font-size-sm;
+              font-weight: $font-weight-medium;
+              line-height: 1.5;
+            }
+          }
+        }
+      }
+
+      .freight-divider {
+        height: 1px;
+        background: #DFE1E6;
+      }
+
+      .confirmation-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .confirmation-avatar {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          overflow: hidden;
+          flex-shrink: 0;
+          background: #DFE1E6;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $text-medium;
+            font-family: $font-satoshi;
+            font-size: 10px;
+            font-weight: $font-weight-bold;
+          }
+        }
+
+        .confirmation-text {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 4px;
+
+          .confirmation-normal,
+          .confirmation-bold {
+            color: $text-medium;
+            font-family: $font-satoshi;
+            font-size: $font-size-xs;
+            line-height: 1.6;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .confirmation-normal {
+            font-weight: $font-weight-medium;
+          }
+
+          .confirmation-bold {
+            font-weight: $font-weight-bold;
+          }
         }
       }
     }
