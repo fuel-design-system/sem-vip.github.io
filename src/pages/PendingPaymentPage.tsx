@@ -20,9 +20,9 @@ export default function PendingPaymentPage() {
 
   const handleFooterButtonClick = () => {
     if (selectedOption === 'pix') {
-      navigate('/payment-loading?method=pix');
+      navigate('/payment/loading?method=pix');
     } else if (selectedOption === 'card') {
-      navigate('/payment-loading?method=card');
+      navigate('/payment/loading?method=card');
     } else if (selectedOption === 'vip') {
       // Navigate to VIP subscription page
       navigate('/vip-subscription');
