@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FreightCard.scss';
+import PaymentBlockBottomSheet from './PaymentBlockBottomSheet';
 
 interface FreightCardProps {
   id: number;
@@ -16,6 +18,7 @@ interface FreightCardProps {
   destination: string;
   company: string;
   companyAvatar?: string | null;
+  hasNegotiationCompleted?: boolean;
 }
 
 export default function FreightCard({
@@ -32,11 +35,21 @@ export default function FreightCard({
   origin,
   destination,
   company,
+  hasNegotiationCompleted = false,
 }: FreightCardProps) {
   const navigate = useNavigate();
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleCardClick = () => {
-    navigate(`/freight/${id}`);
+    if (hasNegotiationCompleted) {
+      setIsBottomSheetOpen(true);
+    } else {
+      navigate(`/freight/${id}`);
+    }
+  };
+
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
   };
 
   return (
