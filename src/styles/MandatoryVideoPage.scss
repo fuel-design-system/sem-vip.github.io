@@ -77,7 +77,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    min-width: 64px;
+    width: 240px;
     height: 48px;
     padding: 0 16px;
     background: #0769DA;
@@ -88,6 +88,7 @@
     font-weight: $font-weight-medium;
     line-height: 150%;
     text-align: center;
+    white-space: nowrap;
     pointer-events: none; // Allow clicks to pass through to overlay
     user-select: none;
 
