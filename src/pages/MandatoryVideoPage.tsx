@@ -149,7 +149,28 @@ export default function MandatoryVideoPage() {
               cursor: "pointer",
               zIndex: 10,
             }}
-          />
+          >
+            {/* Unmute button - shows when video is muted */}
+            {isMuted && (
+              <div className="unmute-button">
+                <span>Ativar som do vídeo</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 12V8.17391C1 4.21187 4.13401 1 8 1C11.866 1 15 4.21187 15 8.17391V12M4 15H5C5.55228 15 6 14.5523 6 14V10C6 9.44772 5.55228 9 5 9H4C3.44772 9 3 9.44772 3 10V14C3 14.5523 3.44772 15 4 15ZM11 15H12C12.5523 15 13 14.5523 13 14V10C13 9.44772 12.5523 9 12 9H11C10.4477 9 10 9.44772 10 10V14C10 14.5523 10.4477 15 11 15Z"
+                    stroke="white"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="audio-hint">
