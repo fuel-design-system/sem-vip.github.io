@@ -101,8 +101,17 @@ export default function MandatoryVideoPage() {
   };
 
   const handleSkipVip = () => {
+    // Marca que o vídeo obrigatório foi visto
+    localStorage.setItem('hasSeenMandatoryVideo', 'true');
     navigate(-1);
   };
+
+  // Marca como visto quando o componente é desmontado
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('hasSeenMandatoryVideo', 'true');
+    };
+  }, []);
 
   return (
     <div className="mandatory-video-page">
